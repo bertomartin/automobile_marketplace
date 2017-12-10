@@ -1,2 +1,22 @@
-{% load static %}
-{% block content %}{% endblock %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    <title>Corner coffee shop</title>
+</head>
+<body>
+<div class="container">
+    {% block content %}Oops, missing 'content' block for this template...{% endblock %}
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% block customscript %}{% endblock %}
+</body>
+</html>
