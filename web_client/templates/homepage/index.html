@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}<p>Homepage</p>{% endblock %}
+{% block content %}
+    <div class="jumbotron" style="margin-top: 50px">
+            <h1>Welcome to Car Market!</h1>
+            <p>Find your next car with qualified help of our car specialists and network of authorised workshops across the country.</p>
+        <br>
+        <br>
+        <br>
+        <br>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Let's start!</a></p>
+{#            <p><a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Let's start!</a></p>#}
+    </div>
+{% endblock %}
 
 
