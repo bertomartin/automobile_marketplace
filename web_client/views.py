@@ -17,7 +17,7 @@ class UserFormView(View):
         if form.is_valid():
             user = form.save(commit=False)
             username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            password = form.cleaned_data['password1']
 
             # properly set/change password
             user.set_password(password)
