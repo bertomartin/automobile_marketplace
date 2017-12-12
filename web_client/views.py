@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
-from web_client.forms import UserForm
+from web_client.forms import *
 
 
 class SignUpForm(View):
-    template_name = 'signup/signup.html'
+    template_name = 'registration/signup.html'
 
     def get(self, request):
         form = UserForm(None)
@@ -31,10 +31,6 @@ class SignUpForm(View):
                     return redirect('welcome')
 
         return render(request, self.template_name, {'form': form})
-
-
-class LoginForm(View):
-    pass
 
 
 class WelcomePage(View):
