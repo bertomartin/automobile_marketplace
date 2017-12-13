@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+
+class Offer(models.Model):
+    make = models.CharField
+    model = models.CharField
+    engine = models.CharField
+    body_type = models.CharField
+    # image = models.FilePathField
