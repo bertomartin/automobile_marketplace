@@ -49,10 +49,13 @@ class Homepage(View):
         if not request.user.is_authenticated:
             login_status = False
             viewing_as = 'Guest'
+            list_of_offers = Offer.objects.all()
         else:
             login_status = True
             viewing_as = request.user
-        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status})
+            list_of_offers = Offer.objects.all()
+
+        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers})
 
 
 class CreateOffer(CreateView):
