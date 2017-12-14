@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
+    # Offers management
+    url(r'^offer/add/$', views.CreateOffer.as_view(), name='new_offer'),
+
     # url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
     # url(r'^search/$', views.Search.as_view(), name='search'),
     # url(r'^profile/$', views.Profile.as_view(), name='profile'),
