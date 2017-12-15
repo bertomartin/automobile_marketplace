@@ -79,14 +79,30 @@
     </div>
     </nav>
 
-    <div class="row" style="margin-top: 80px">
+    <div class="row" style="padding-top: 70px">
         <div class="col-md-2">Scroll follower category</div>
         <div class="col-md-7">
             {% for offer in offers %}
-                <p>{{ offer.make }}</p>
-                <p>{{ offer.model }}</p>
-                <p>{{ offer.engine }}</p>
-                <p>{{ offer.body_type }}</p>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">Make</span>
+                        {{ offer.make }}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">Model</span>
+                        {{ offer.model }}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">Engine</span>
+                        {{ offer.engine }}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">Type</span>
+                        {{ offer.body_type }}
+                    </li>
+                </ul>
+
             {% endfor %}
         </div>
         <div class="col-md-3">Scroll follower ads</div>
