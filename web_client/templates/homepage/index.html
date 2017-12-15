@@ -79,15 +79,19 @@
     </div>
     </nav>
 
-
-    <div style="margin-top: 100px">
-        {% for offer in offers %}
-            <p>{{ offer.make }}</p>
-            <p>{{ offer.model }}</p>
-            <p>{{ offer.engine }}</p>
-            <p>{{ offer.body_type }}</p>
-        {% endfor %}
+    <div class="row" style="margin-top: 80px">
+        <div class="col-md-2">Scroll follower category</div>
+        <div class="col-md-7">
+            {% for offer in offers %}
+                <p>{{ offer.make }}</p>
+                <p>{{ offer.model }}</p>
+                <p>{{ offer.engine }}</p>
+                <p>{{ offer.body_type }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">Scroll follower ads</div>
     </div>
+
 
 
 {% endblock %}
