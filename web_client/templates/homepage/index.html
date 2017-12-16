@@ -58,6 +58,13 @@
                                 <li><a href="{% url 'new_offer' %}">Create offer</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{% url 'logout' %}">Log out</a></li>
+                                {% if request.user.is_superuser %}
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">Administrator section</li>
+                                    <li><a href="admin/">Manage</a></li>
+                                {% endif %}
+
+
                             </ul>
                         </li>
                     {% else %}
