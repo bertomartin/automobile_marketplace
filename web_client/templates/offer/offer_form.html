@@ -15,7 +15,7 @@
                     <input class="form-control" id="{{ field.id_for_label }}" maxlength="30"
                            name="{{ field.html_name }}" placeholder="{{ field.label }}" type="{{ field.type }}"
                            aria-describedby="{{ field.id_for_label }}">
-                    <span id="{{ field.id_for_label }}" class="help-block">This field is required.</span>
+                    <span id="{{ field.id_for_label }}" class="help-block">{{ field.errors }}</span>
                     </div>
 
                 {% else %}

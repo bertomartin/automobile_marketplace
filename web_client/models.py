@@ -14,6 +14,10 @@ class Offer(models.Model):
         return reverse('homepage')
 
 
+class Manufacturer(models.Model):
+    make = models.CharField(max_length=50)
+
+
 class BodyTypes(models.Model):
     body_type = models.CharField(max_length=20, blank=False)
 
