@@ -10,9 +10,6 @@ class Offer(models.Model):
     body_type = models.CharField(max_length=20)
     # image = models.FilePathField
 
-    def get_absolute_url(self):
-        return reverse('homepage')
-
 
 class Manufacturer(models.Model):
     make = models.CharField(max_length=50)
