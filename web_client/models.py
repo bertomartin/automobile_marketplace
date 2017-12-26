@@ -14,7 +14,7 @@ class Offer(models.Model):
     engine_capacity = models.CharField(max_length=4)
     body_type = models.CharField(max_length=20)
     production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
-    description = models.TextField(default=None)
+    description = models.TextField(default=None, blank=True)
     # image = models.FilePathField
 
 

@@ -34,11 +34,13 @@ class OfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OfferForm, self).__init__(*args, **kwargs)
         self.fields['make'].widget.attrs.update({'class': 'form-control'})
+        self.fields['model'].widget.attrs.update({'class': 'form-control'})
         self.fields['engine_type'].widget.attrs.update({'class': 'form-control'})
         self.fields['engine_capacity'].widget.attrs.update({'class': 'form-control'})
         self.fields['body_type'].widget.attrs.update({'class': 'form-control'})
+        self.fields['production_year'].widget.attrs.update({'class': 'form-control'})
         self.fields['description'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Additional description'})
 
     class Meta:
         model = Offer
-        fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'description']
+        fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description']
