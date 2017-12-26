@@ -14,14 +14,26 @@ class Offer(models.Model):
 class Manufacturer(models.Model):
     make = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.make
+
 
 class BodyTypes(models.Model):
     body_type = models.CharField(max_length=20, blank=False)
+
+    def __str__(self):
+        return self.body_type
 
 
 class EngineTypes(models.Model):
     engine_type = models.CharField(max_length=20, blank=False, unique=True)
 
+    def __str__(self):
+        return self.engine_type
+
 
 class EngineCapacities(models.Model):
     engine_capacity = models.FloatField(blank=False, unique=True)
+
+    def __str__(self):
+        return self.engine_capacity
