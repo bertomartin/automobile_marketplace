@@ -26,6 +26,19 @@ class SignUpForm(UserCreationForm):
 
 class OfferForm(forms.ModelForm):
 
+    make = forms.ModelChoiceField(queryset=Manufacturer.objects.all())
+    engine_type = forms.ModelChoiceField(queryset=EngineTypes.objects.all())
+    engine_capacity = forms.ModelChoiceField(queryset=EngineCapacities.objects.all())
+    body_type = forms.ModelChoiceField(queryset=BodyTypes.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super(OfferForm, self).__init__(*args, **kwargs)
+        self.fields['make'].widget.attrs.update({'class': 'form-control'})
+        self.fields['engine_type'].widget.attrs.update({'class': 'form-control'})
+        self.fields['engine_capacity'].widget.attrs.update({'class': 'form-control'})
+        self.fields['body_type'].widget.attrs.update({'class': 'form-control'})
+        self.fields['description'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Additional description'})
+
     class Meta:
         model = Offer
-        fields = ['make', 'model', 'engine', 'body_type']
+        fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'description']

@@ -1,13 +1,20 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+import datetime
 
 
 class Offer(models.Model):
-    # TODO: each field should be a foreign key to list of related values
+
+    YEAR_CHOICES = []
+    for r in range(1901, (datetime.datetime.now().year + 1)):
+        YEAR_CHOICES.append((r, r))
+
     make = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
-    engine = models.CharField(max_length=20)
+    engine_type = models.CharField(max_length=20)
+    engine_capacity = models.CharField(max_length=4)
     body_type = models.CharField(max_length=20)
+    production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
+    description = models.TextField(default=None)
     # image = models.FilePathField
 
 
@@ -36,4 +43,4 @@ class EngineCapacities(models.Model):
     engine_capacity = models.FloatField(blank=False, unique=True)
 
     def __str__(self):
-        return self.engine_capacity
+        return str(self.engine_capacity)
