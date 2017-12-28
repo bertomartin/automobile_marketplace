@@ -40,7 +40,8 @@ class OfferForm(forms.ModelForm):
         self.fields['body_type'].widget.attrs.update({'class': 'form-control'})
         self.fields['production_year'].widget.attrs.update({'class': 'form-control'})
         self.fields['description'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Additional description'})
+        self.fields['price'].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
         model = Offer
-        fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description']
+        fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description', 'price']

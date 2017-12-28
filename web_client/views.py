@@ -78,6 +78,7 @@ class CreateOffer(View):
         form = OfferForm(request.POST)
         if form.is_valid():
             offer = form.save(commit=False)
+            offer.owner = request.user
             offer.save()
             return redirect('homepage')
 
