@@ -117,3 +117,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'web_client', 'static'),
     os.path.join(BASE_DIR, 'web_client', 'templates'),
                     )
+
+# Uploaded files (Images, Docs)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

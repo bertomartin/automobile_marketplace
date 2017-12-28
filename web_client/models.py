@@ -15,6 +15,7 @@ class Offer(models.Model):
     body_type = models.CharField(max_length=20)
     production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     description = models.TextField(default=None, blank=True)
+    # price = models.DecimalField(max_digits=6, decimal_places=2)
     # image = models.FilePathField
 
 
