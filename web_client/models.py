@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+import uuid
 
 
 class Offer(models.Model):
@@ -9,6 +10,7 @@ class Offer(models.Model):
     for r in range(1901, (datetime.datetime.now().year + 1)):
         YEAR_CHOICES.append((r, r))
 
+    offer_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     make = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
