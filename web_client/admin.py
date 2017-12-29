@@ -4,6 +4,6 @@ from .models import *
 
 admin.site.register(Offer)
 admin.site.register(Manufacturer)
-admin.site.register(BodyTypes)
-admin.site.register(EngineTypes)
-admin.site.register(EngineCapacities)
+admin.site.register(BodyType)
+admin.site.register(EngineType)
+admin.site.register(EngineCapacity)
