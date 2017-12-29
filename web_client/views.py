@@ -83,3 +83,14 @@ class CreateOffer(View):
             return redirect('homepage')
 
         return render(request, self.template_name, {'form': form})
+
+
+class UserOffers(View):
+    template_name = 'user_offers/user_offers.html'
+
+    def get(self, request):
+        offers = Offer.objects.filter(owner=request.user)
+        return render(request, self.template_name, {'offers': offers})
+
+    def post(self, request):
+        pass

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% for offer in offers %}
+
+
+                <div class="jumbotron">
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            <span class="label label-default">{{ offer.created }}</span>
+                            <li class="list-group-item">
+                                <span class="badge">Make</span>
+                                {{ offer.make }}
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">Model</span>
+                                {{ offer.model }}
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">Engine</span>
+                                {{ offer.engine_capacity }} {{ offer.engine_type }}
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">Body type</span>
+                                {{ offer.body_type }}
+                            </li>
+                            <li class="list-group-item list-group-item-info">
+                                <span class="badge">Price</span>
+                                {{ offer.price }}
+                            </li>
+                        </ul>
+                        {% if offer.description %}
+                            <h5>Description</h5>
+                            <p>{{ offer.description }}</p>
+                        {% endif %}
+
+                    </div>
+                    <div class="col-md-6">
+                        <img src="..." class="img-responsive" alt="Responsive image">
+                    </div>
+
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary">Contact seller</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-info">Request vehicle inspection</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            {% endfor %}
+{% endblock %}

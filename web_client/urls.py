@@ -11,6 +11,7 @@ urlpatterns = [
 
     # Offers management
     url(r'^offer/add/$', views.CreateOffer.as_view(), name='new_offer'),
+    url(r'^offers/$', views.UserOffers.as_view(), name='user_offers'),
 
     # url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
     # url(r'^search/$', views.Search.as_view(), name='search'),

@@ -20,6 +20,7 @@ class Offer(models.Model):
     production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     description = models.TextField(default=None, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    created = models.DateField(auto_now_add=True)
     # image = models.FilePathField
 
 

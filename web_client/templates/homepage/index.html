@@ -49,7 +49,7 @@
                                    aria-expanded="false">Your cockpit<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Account</a></li>
-                                    <li><a href="#">Your offers</a></li>
+                                    <li><a href="{% url 'user_offers' %}">Your offers</a></li>
                                     <li><a href="{% url 'new_offer' %}">Create offer</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="{% url 'logout' %}">Log out</a></li>
@@ -82,7 +82,20 @@
     </nav>
 
     <div class="row" style="padding-top: 70px">
-        <div class="col-md-2">Scroll follower category</div>
+        <div class="col-md-2">
+
+            <div class="btn-group">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                   Sorting options <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>Date</li>
+                    <li>Price</li>
+                </ul>
+            </div>
+
+        </div>
         <div class="col-md-7">
             {% for offer in offers %}
 
@@ -90,6 +103,7 @@
                 <div class="jumbotron">
                     <div class="col-md-6">
                         <ul class="list-group">
+                            <span class="label label-default">{{ offer.created }}</span>
                             <li class="list-group-item">
                                 <span class="badge">Make</span>
                                 {{ offer.make }}
