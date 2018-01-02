@@ -52,7 +52,7 @@ class ContractorForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ContractorForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            field.widget.attrs.update({'class': 'form-control'})
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
         model = Contractor
