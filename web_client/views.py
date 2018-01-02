@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from web_client.forms import SignUpForm as CreateUser
-from web_client.forms import OfferForm
+from web_client.forms import *
 from web_client.models import *
 
 
@@ -94,3 +94,20 @@ class UserOffers(View):
 
     def post(self, request):
         pass
+
+
+class CreateContractor(View):
+    template_name = 'contractor/contractor_form.html'
+
+    def get(self, request):
+        form = ContractorForm
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = ContractorForm(request.POST)
+        if form.is_valid():
+            contractor = form.save(commit=False)
+            contractor.save()
+            return redirect('homepage')
+
+        return render(request, self.template_name, {'form': form})

@@ -13,6 +13,9 @@ urlpatterns = [
     url(r'^offer/add/$', views.CreateOffer.as_view(), name='new_offer'),
     url(r'^offers/$', views.UserOffers.as_view(), name='user_offers'),
 
+    # Contractors management
+    url(r'^contractors/add/$', views.CreateContractor.as_view(), name='add_contractor'),
+
     # url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
     # url(r'^search/$', views.Search.as_view(), name='search'),
     # url(r'^profile/$', views.Profile.as_view(), name='profile'),
