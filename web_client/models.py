@@ -22,7 +22,7 @@ class Offer(models.Model):
     body_type = models.CharField(max_length=20)
     production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     description = models.TextField(default=None, blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.PositiveIntegerField(blank=None)
     created = models.DateField(auto_now_add=True)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=False)
     # image = models.FilePathField
