@@ -132,9 +132,32 @@
                         {% endif %}
 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <img src="..." class="img-responsive" alt="Responsive image">
                     </div>
+
+                    <div class="col-md-1">
+                        <button type="button" id="share-offer" class="btn btn-default" data-toggle="modal" data-target="#{{ offer.offer_id }}_share" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                        </button>
+                        <div class="modal fade" id="{{ offer.offer_id }}_share" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Share this offer simply by sending this URL to another person...</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" class="form-control" value="URL goes here...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="btn-group btn-group-justified" role="group" aria-label="...">
                         <div class="btn-group" role="group">
