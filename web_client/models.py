@@ -24,8 +24,13 @@ class Offer(models.Model):
     description = models.TextField(default=None, blank=True)
     price = models.PositiveIntegerField(blank=None)
     created = models.DateField(auto_now_add=True)
+    # contact_person = models.CharField(max_length=40, blank=False)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=False)
-    # image = models.FilePathField
+
+
+class Image(models.Model):
+    referencing_offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    image = models.FileField(upload_to='images')
 
 
 class Manufacturer(models.Model):
