@@ -56,4 +56,4 @@ class ContractorForm(forms.ModelForm):
 
     class Meta:
         model = Contractor
-        fields = ['title', 'street', 'city', 'country', 'email', 'status']
+        fields = ['title', 'street', 'city', 'country', 'email', 'status', 'phone_number']

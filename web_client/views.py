@@ -51,12 +51,14 @@ class Homepage(View):
             login_status = False
             viewing_as = 'Guest'
             list_of_offers = Offer.objects.all()
+            contractors = None
         else:
             login_status = True
             viewing_as = request.user
             list_of_offers = Offer.objects.all()
+            contractors = Contractor.objects.all()
 
-        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers})
+        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers, 'contractors': contractors})
 
 
 # class CreateOffer(CreateView):

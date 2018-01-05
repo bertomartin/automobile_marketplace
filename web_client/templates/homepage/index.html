@@ -175,25 +175,46 @@
                 <div class="modal fade" id="{{ offer.offer_id }}_inspection" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Seller's contact information</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <h4 class="list-group-item-heading">Workshop title</h4>
-                                        <p class="list-group-item-text"> Description</p>
-                                    </a>
+                        {% if login_status %}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Select one of our trusted inspection
+                                        centers</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    {% for contractor in contractors %}
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item">
+                                                <h4 class="list-group-item-heading">{{ contractor.title }}</h4>
+                                                <p class="list-group-item-text"> {{ contractor.street }}</p>
+                                                <p class="list-group-item-text"> {{ contractor.city }}</p>
+                                                <p class="list-group-item-text"> {{ contractor.phone_number }}</p>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Select and request inspection</button>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Select and request inspection</button>
+                        {% else %}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Please <a
+                                            href="{% url 'login' %}">login</a> or <a
+                                            href="{% url 'signup' %}">register</a> to
+                                        access this feature.</h4>
+                                </div>
                             </div>
-                        </div>
+
+                        {% endif %}
                     </div>
                 </div>
 
