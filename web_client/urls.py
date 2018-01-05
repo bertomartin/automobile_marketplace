@@ -12,6 +12,7 @@ urlpatterns = [
     # Offers management
     url(r'^offer/add/$', views.CreateOffer.as_view(), name='new_offer'),
     url(r'^offers/$', views.UserOffers.as_view(), name='user_offers'),
+    url(r'^offer/(?P<offer_id>[0-9a-f-]+)$', views.OfferView.as_view(), name='offer'),
 
     # Contractors management
     url(r'^contractors/add/$', views.CreateContractor.as_view(), name='add_contractor'),

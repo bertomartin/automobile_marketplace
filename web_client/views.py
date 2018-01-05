@@ -61,10 +61,19 @@ class Homepage(View):
         return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers, 'contractors': contractors})
 
 
-# class CreateOffer(CreateView):
-#     template_name = 'offer/offer_form.html'
-#     model = Offer
-#     fields = ['make', 'model', 'engine', 'body_type']
+class OfferView(View):
+    template_name = ''
+
+    def get_offer(self, offer_id):
+        try:
+            return Offer.objects.get(id=offer_id)
+        except:
+            return None
+
+    def get(self, request, offer_id):
+        query_result = self.get_offer(offer_id)
+        return render(request, self.template_name, {'query_result': query_result})
+
 
 class CreateOffer(View):
     template_name = 'offer/offer_form.html'
