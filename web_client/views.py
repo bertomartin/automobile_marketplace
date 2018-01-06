@@ -83,7 +83,8 @@ class CreateOffer(View):
     def get(self, request):
         form = OfferForm
         maker_list = Manufacturer.objects.all()
-        return render(request, self.template_name, {'form': form, 'maker_list': maker_list})
+        default_contact_person = request.user.first_name
+        return render(request, self.template_name, {'form': form, 'maker_list': maker_list, 'default_contact_person': default_contact_person})
 
     def post(self, request):
         form = OfferForm(request.POST)
