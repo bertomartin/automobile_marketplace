@@ -79,3 +79,8 @@ class Country(models.Model):
 
 class City(models.Model):
     city = models.CharField(max_length=20, blank=False)
+
+
+class Currency(models.Model):
+    currency = models.CharField(max_length=10)
+    currency_abbr = models.CharField(max_length=5)
