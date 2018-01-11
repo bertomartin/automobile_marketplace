@@ -81,8 +81,7 @@ class CreateOffer(View):
     fields = ['make', 'model', 'engine', 'body_type']
 
     def get(self, request):
-        # pass user as argument
-        form = OfferForm()
+        form = OfferForm(initial={'contact_person': request.user.first_name})
         maker_list = Manufacturer.objects.all()
         return render(request, self.template_name, {'form': form, 'maker_list': maker_list})
 

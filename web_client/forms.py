@@ -30,6 +30,7 @@ class OfferForm(forms.ModelForm):
     engine_type = forms.ModelChoiceField(queryset=EngineType.objects.all())
     engine_capacity = forms.ModelChoiceField(queryset=EngineCapacity.objects.all())
     body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
+    # contact_person = forms.CharField(initial='first_name')
 
     def __init__(self, *args, **kwargs):
         super(OfferForm, self).__init__(*args, **kwargs)

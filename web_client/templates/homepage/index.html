@@ -151,7 +151,7 @@
                                         <h4 class="modal-title" id="myModalLabel">Copy URL below to share this offer with others</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <input type="text" class="form-control" value="URL goes here...">
+                                        <input type="text" class="form-control" value="http://www.automarket.com/offer/{{ offer.offer_id }}">
                                     </div>
                                 </div>
                             </div>
@@ -207,8 +207,8 @@
                                     <h4 class="modal-title" id="myModalLabel">Select one of our trusted inspection
                                         centers</h4>
                                 </div>
-                                <div class="modal-body">
 
+                                <div class="modal-body" style="overflow-y: scroll; height:300px;">
                                     {% for contractor in contractors %}
                                         <div class="list-group">
                                             <a href="#" class="list-group-item">
@@ -219,8 +219,8 @@
                                             </a>
                                         </div>
                                     {% endfor %}
-
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Select and request inspection</button>
