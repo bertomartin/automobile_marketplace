@@ -7,6 +7,11 @@ import uuid
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
 
+class Currency(models.Model):
+    currency = models.CharField(max_length=10)
+    currency_abbr = models.CharField(max_length=5)
+
+
 class Offer(models.Model):
 
     YEAR_CHOICES = []
@@ -24,7 +29,8 @@ class Offer(models.Model):
     description = models.TextField(default=None, blank=True)
     price = models.PositiveIntegerField(blank=None)
     created = models.DateField(auto_now_add=True)
-    # contact_person = models.CharField(max_length=40, blank=False)
+    contact_person = models.CharField(max_length=40, blank=False)
+    # currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=False)
 
 
@@ -81,6 +87,4 @@ class City(models.Model):
     city = models.CharField(max_length=20, blank=False)
 
 
-class Currency(models.Model):
-    currency = models.CharField(max_length=10)
-    currency_abbr = models.CharField(max_length=5)
+

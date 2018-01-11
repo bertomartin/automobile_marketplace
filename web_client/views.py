@@ -81,10 +81,10 @@ class CreateOffer(View):
     fields = ['make', 'model', 'engine', 'body_type']
 
     def get(self, request):
-        form = OfferForm
+        # pass user as argument
+        form = OfferForm()
         maker_list = Manufacturer.objects.all()
-        default_contact_person = request.user.first_name
-        return render(request, self.template_name, {'form': form, 'maker_list': maker_list, 'default_contact_person': default_contact_person})
+        return render(request, self.template_name, {'form': form, 'maker_list': maker_list})
 
     def post(self, request):
         form = OfferForm(request.POST)
@@ -95,6 +95,14 @@ class CreateOffer(View):
             return redirect('homepage')
 
         return render(request, self.template_name, {'form': form})
+
+
+class TestModal(View):
+    def get(self):
+        pass
+
+    def post(self):
+        pass
 
 
 class UserOffers(View):
