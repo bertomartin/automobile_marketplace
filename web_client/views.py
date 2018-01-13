@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from web_client.forms import SignUpForm as CreateUser
 from web_client.forms import *
 from web_client.models import *

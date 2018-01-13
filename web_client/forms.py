@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from web_client.models import *
 
 
@@ -30,7 +29,6 @@ class OfferForm(forms.ModelForm):
     engine_type = forms.ModelChoiceField(queryset=EngineType.objects.all())
     engine_capacity = forms.ModelChoiceField(queryset=EngineCapacity.objects.all())
     body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
-    # contact_person = forms.CharField(initial='first_name')
 
     def __init__(self, *args, **kwargs):
         super(OfferForm, self).__init__(*args, **kwargs)
