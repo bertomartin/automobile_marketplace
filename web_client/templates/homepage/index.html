@@ -174,80 +174,23 @@
                 </div>
 
                 <!-- Seller's contact information modal -->
-                <div class="modal fade" id="{{ offer.offer_id }}_contact" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Seller's contact information</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>{{ offer.owner.first_name }}</p>
-                                <p>{{ offer.phone_number }}</p>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include post_left_modal %}
 
                 <!-- Request inspection modal -->
-                <div class="modal fade" id="{{ offer.offer_id }}_inspection" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        {% if login_status %}
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Select one of our trusted inspection
-                                        centers</h4>
-                                </div>
-
-                                <div class="modal-body" style="overflow-y: scroll; height:300px;">
-                                    {% for contractor in contractors %}
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item">
-                                                <h4 class="list-group-item-heading">{{ contractor.title }}</h4>
-                                                <p class="list-group-item-text"> {{ contractor.street }}</p>
-                                                <p class="list-group-item-text"> {{ contractor.city }}</p>
-                                                <p class="list-group-item-text"> {{ contractor.phone_number }}</p>
-                                            </a>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Select and request inspection</button>
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Please <a
-                                            href="{% url 'login' %}">login</a> or <a
-                                            href="{% url 'signup' %}">register</a> to
-                                        access this feature.</h4>
-                                </div>
-                            </div>
-
-                        {% endif %}
-                    </div>
-                </div>
-
+                {% include post_right_modal %}
 
             {% endfor %}
+{#        <button id="testButton" type="button" class="btn btn-default" >Submit</button>#}
         </div>
         <div class="col-md-3">Scroll follower ads</div>
     </div>
 
 
 
+{% endblock %}
+
+{% block customscript %}
+
+    {#  Script for 'new_post' template #}
+    <script src="{% static 'homepage/workshop_list_modal.js' %}"></script>
 {% endblock %}

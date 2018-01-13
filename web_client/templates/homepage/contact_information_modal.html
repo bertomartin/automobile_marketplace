@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="modal fade" id="{{ offer.offer_id }}_contact" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Seller's contact information</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ offer.owner.first_name }}</p>
+                <p>{{ offer.phone_number }}</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

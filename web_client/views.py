@@ -45,6 +45,8 @@ class WelcomePage(View):
 
 class Homepage(View):
     template_name = 'homepage/index.html'
+    post_left_modal = 'homepage/contact_information_modal.html'
+    post_right_modal = 'homepage/workshop_list_modal.html'
 
     def get(self, request):
         if not request.user.is_authenticated:
@@ -58,7 +60,7 @@ class Homepage(View):
             list_of_offers = Offer.objects.all()
             contractors = Contractor.objects.all()
 
-        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers, 'contractors': contractors})
+        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers, 'contractors': contractors, 'post_left_modal': self.post_left_modal, 'post_right_modal': self.post_right_modal})
 
 
 class OfferView(View):
