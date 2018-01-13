@@ -45,6 +45,8 @@ class WelcomePage(View):
 
 class Homepage(View):
     template_name = 'homepage/index.html'
+    view_options = 'homepage/view_options.html'
+    ad_bar = 'homepage/ad_bar.html'
     post_representation = 'homepage/post_representation.html'
     post_left_modal = 'homepage/contact_information_modal.html'
     post_right_modal = 'homepage/workshop_list_modal.html'
@@ -56,10 +58,13 @@ class Homepage(View):
         else:
             contractors = Contractor.objects.all()
 
-        return render(request, self.template_name, {'offers': self.list_of_offers, 'contractors': contractors,
+        return render(request, self.template_name, {'offers': self.list_of_offers,
+                                                    'contractors': contractors,
                                                     'post_left_modal': self.post_left_modal,
                                                     'post_right_modal': self.post_right_modal,
-                                                    'post_representation': self.post_representation})
+                                                    'post_representation': self.post_representation,
+                                                    'view_options': self.view_options,
+                                                    'ad_bar': self.ad_bar})
 
 
 class OfferView(View):

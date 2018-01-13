@@ -84,29 +84,21 @@
     </nav>
 
     <div class="row" style="padding-top: 70px">
+
         <div class="col-md-2">
-
-            <div class="btn-group">
-                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Sorting options <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Date</a></li>
-                    <li><a href="#">Price</a></li>
-                </ul>
-            </div>
-
+            {% include view_options %}
         </div>
+
         <div class="col-md-7">
             {% for offer in offers %}
                 {% include post_representation %}
             {% endfor %}
         </div>
-        <div class="col-md-3">Scroll follower ads</div>
+
+        <div class="col-md-3">
+            {% include ad_bar %}
+        </div>
     </div>
-
-
 
 {% endblock %}
 
