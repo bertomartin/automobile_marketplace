@@ -1,3 +1,3 @@
-$('#testButton').click(function () {
-    console.log('clicked!')
+$('.list-group-item').click(function () {
+    $(this).addClass('active');
 });
