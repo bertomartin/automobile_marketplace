@@ -45,6 +45,7 @@ class WelcomePage(View):
 
 class Homepage(View):
     template_name = 'homepage/index.html'
+    post_representation = 'homepage/post_representation.html'
     post_left_modal = 'homepage/contact_information_modal.html'
     post_right_modal = 'homepage/workshop_list_modal.html'
 
@@ -60,7 +61,11 @@ class Homepage(View):
             list_of_offers = Offer.objects.all()
             contractors = Contractor.objects.all()
 
-        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status, 'offers': list_of_offers, 'contractors': contractors, 'post_left_modal': self.post_left_modal, 'post_right_modal': self.post_right_modal})
+        return render(request, self.template_name, {'viewing_as': viewing_as, 'login_status': login_status,
+                                                    'offers': list_of_offers, 'contractors': contractors,
+                                                    'post_left_modal': self.post_left_modal,
+                                                    'post_right_modal': self.post_right_modal,
+                                                    'post_representation': self.post_representation})
 
 
 class OfferView(View):

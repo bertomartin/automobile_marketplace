@@ -1,0 +1,84 @@
+{% load static %}
+
+
+<div class="jumbotron">
+    <div class="col-md-6">
+        <ul class="list-group">
+            <span class="label label-default">{{ offer.created }}</span>
+            <li class="list-group-item">
+                <span class="badge">Make</span>
+                {{ offer.make }}
+            </li>
+            <li class="list-group-item">
+                <span class="badge">Model</span>
+                {{ offer.model }}
+            </li>
+            <li class="list-group-item">
+                <span class="badge">Engine</span>
+                {{ offer.engine_capacity }} {{ offer.engine_type }}
+            </li>
+            <li class="list-group-item">
+                <span class="badge">Body type</span>
+                {{ offer.body_type }}
+            </li>
+            <li class="list-group-item list-group-item-info">
+                <span class="badge">Price</span>
+                {{ offer.price }}
+            </li>
+        </ul>
+        {% if offer.description %}
+            <h5>Description</h5>
+            <p>{{ offer.description }}</p>
+        {% endif %}
+
+    </div>
+    <div class="col-md-5">
+        <img src="..." class="img-responsive" alt="Responsive image">
+    </div>
+
+    <div class="col-md-1">
+        <button type="button" id="share-offer" class="btn btn-default" data-toggle="modal"
+                data-target="#{{ offer.offer_id }}_share" aria-label="Left Align">
+            <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+        </button>
+        <div class="modal fade" id="{{ offer.offer_id }}_share" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Copy URL below to share this offer with
+                            others</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control"
+                               value="http://www.automarket.com/offer/{{ offer.offer_id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#{{ offer.offer_id }}_contact">
+                Contact seller
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-info" data-toggle="modal"
+                    data-target="#{{ offer.offer_id }}_inspection">Request vehicle inspection
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Seller's contact information modal -->
+{% include post_left_modal %}
+
+<!-- Request inspection modal -->
+{% include post_right_modal %}
