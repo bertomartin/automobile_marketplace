@@ -17,6 +17,9 @@ urlpatterns = [
     # Contractors management
     url(r'^contractors/add/$', views.CreateContractor.as_view(), name='add_contractor'),
 
+    # Vehicle inspection
+    url(r'^ajax/inspect/$', views.request_inspection, name='request_inspection'),
+
     # url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
     # url(r'^search/$', views.Search.as_view(), name='search'),
     # url(r'^profile/$', views.Profile.as_view(), name='profile'),

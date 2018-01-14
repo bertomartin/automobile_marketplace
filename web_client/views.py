@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
+from django.http import JsonResponse
 from web_client.forms import SignUpForm as CreateUser
 from web_client.forms import *
 from web_client.models import *
@@ -135,3 +136,14 @@ class CreateContractor(View):
             return redirect('homepage')
 
         return render(request, self.template_name, {'form': form})
+
+
+def request_inspection(request):
+        contractor_id = request.GET.get('contractor_id')
+        post_id = request.GET.get('post_id')
+        # TODO: add inspection logic
+        contractor = Contractor.objects.get(id=contractor_id)
+        vehicle = Offer.objects.get(offer_id=post_id)
+        return JsonResponse({'status': 'ok',
+                             'contractor': contractor.title,
+                             'vehicle': vehicle.make})

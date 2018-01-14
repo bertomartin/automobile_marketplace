@@ -104,5 +104,8 @@
 {% endblock %}
 
 {% block customscript %}
+    <script>
+    var request_inspection_ulr = '{% url 'request_inspection' %}';
+    </script>
     <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}
