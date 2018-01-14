@@ -1,7 +1,8 @@
 {% load static %}
 
-<div class="modal fade" id="{{ offer.offer_id }}_inspection" tabindex="-1" role="dialog"
+<div class="modal fade workshops" id="{{ offer.offer_id }}_inspection" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
+    <input type="hidden" id="post-id" name="variable" value="{{ offer.offer_id }}">
     <div class="modal-dialog" role="document">
         {% if request.user.is_authenticated %}
             <div class="modal-content">
@@ -15,7 +16,7 @@
                 <div class="modal-body" style="overflow-y: scroll; height:300px;">
                     {% for contractor in contractors %}
                         <div class="list-group">
-                            <a href="#" class="list-group-item" id="contractor_{{ contractor.id }}">
+                            <a href="#" class="list-group-item" id="{{ contractor.id }}">
                                 <h4 class="list-group-item-heading">{{ contractor.title }}</h4>
                                 <p class="list-group-item-text"> {{ contractor.street }}</p>
                                 <p class="list-group-item-text"> {{ contractor.city }}</p>
@@ -26,8 +27,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Select and request inspection</button>
+                    <button type="button" class="btn btn-default" id="close-workshop-modal" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary submit-workshop-button">Select and request inspection</button>
                 </div>
             </div>
         {% else %}

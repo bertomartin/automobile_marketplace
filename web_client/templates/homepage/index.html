@@ -83,6 +83,7 @@
         </div>
     </nav>
 
+    {#  Main section  #}
     <div class="row" style="padding-top: 70px">
 
         <div class="col-md-2">
@@ -103,13 +104,5 @@
 {% endblock %}
 
 {% block customscript %}
-    <script>
-        $('.share').on('shown.bs.modal', function () {
-            {#console.log('Generating url...');#}
-            $('#post-url').focus();
-        });
-    </script>
-
-    {#  Script for 'workshop' modal template #}
-    <script src="{% static 'homepage/workshop_list_modal.js' %}"></script>
+    <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}
