@@ -46,7 +46,7 @@ class Homepage(View):
     template_name = 'homepage/index.html'
     view_options = 'homepage/view_options.html'
     ad_bar = 'homepage/ad_bar.html'
-    post_representation = 'homepage/post_representation.html'
+    post_representation = 'homepage/post_details.html'
     post_left_modal = 'homepage/contact_information_modal.html'
     post_right_modal = 'homepage/workshop_list_modal.html'
     list_of_offers = Offer.objects.all()
