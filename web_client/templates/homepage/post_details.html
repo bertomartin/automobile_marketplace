@@ -22,7 +22,7 @@
                 {{ offer.body_type }}
             </li>
             <li class="list-group-item list-group-item-info">
-                <span class="badge">Price</span>
+                <span class="badge"><span class="glyphicon glyphicon-gbp" aria-hidden="true"></span></span>
                 {{ offer.price }}
             </li>
         </ul>
@@ -41,7 +41,7 @@
                 data-target="#{{ offer.offer_id }}_share" aria-label="Left Align">
             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
         </button>
-        <div class="modal fade" id="{{ offer.offer_id }}_share" tabindex="-1" role="dialog"
+        <div class="modal fade share" id="{{ offer.offer_id }}_share" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -53,7 +53,7 @@
                             others</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="text" class="form-control"
+                        <input type="text" class="form-control" id="post-url"
                                value="http://www.automarket.com/post/{{ offer.offer_id }}">
                     </div>
                 </div>
