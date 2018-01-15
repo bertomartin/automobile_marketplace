@@ -54,3 +54,22 @@ $('.share').on('shown.bs.modal', function () {
     $('#post-url').focus();
 });
 
+$('#search-input').keyup(function () {
+    var keyword = this.value;
+    console.log($('#search-criteria'.value));
+    if (keyword.length > 0) {
+        var payload = {
+            'keyword': keyword
+        };
+        $.ajax({
+            url: autocomplete_url,
+            data: payload,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            //    TODO: display autocompleton values
+            }
+        });
+    }
+});
+

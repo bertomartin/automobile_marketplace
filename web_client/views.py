@@ -147,3 +147,10 @@ def request_inspection(request):
         return JsonResponse({'status': 'ok',
                              'contractor': contractor.title,
                              'vehicle': vehicle.make})
+
+
+def autocomplete(request):
+    search_keyword = request.GET.get('keyword')
+    # TODO: get all objects containing 'keyword'
+    autocompleter_values = {}
+    return JsonResponse(autocompleter_values)

@@ -24,12 +24,12 @@
 
                     <form class="navbar-form navbar-left">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="..." placeholder="Search ...">
+                            <input type="text" id="search-input" class="form-control" aria-label="..." placeholder="Search ...">
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">Search by <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
+                                <ul class="dropdown-menu dropdown-menu-right" id="search-criteria">
                                     <li><a href="#">Make</a></li>
                                     <li><a href="#">Model</a></li>
                                     <li><a href="#">Production year</a></li>
@@ -106,6 +106,7 @@
 {% block customscript %}
     <script>
     var request_inspection_ulr = '{% url 'request_inspection' %}';
+    var autocomplete_url = '{% url 'autocomplete' %}';
     </script>
     <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}
