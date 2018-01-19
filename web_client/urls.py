@@ -1,11 +1,12 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from web_client import views
+from web_client.views import views, contractor, customer
 
 urlpatterns = [
     url(r'^$', views.Homepage.as_view(), name='homepage'),
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
-    url(r'^signup/$', views.SignUpForm.as_view(), name='signup'),
+    # url(r'^signup/$', views.SignUpForm.as_view(), name='signup'),
+    url(r'^signup/$', customer.CustomerSignUp.as_view(), name='signup'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
