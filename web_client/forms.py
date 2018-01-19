@@ -45,7 +45,7 @@ class OfferForm(forms.ModelForm):
         self.fields['description'].widget.attrs.update({'placeholder': 'Additional description'})
 
     class Meta:
-        model = Offer
+        model = Post
         fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description', 'price', 'phone_number', 'contact_person']
 
 

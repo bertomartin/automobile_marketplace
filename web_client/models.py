@@ -26,7 +26,7 @@ class Currency(models.Model):
     currency_abbr = models.CharField(max_length=5)
 
 
-class Offer(models.Model):
+class Post(models.Model):
 
     YEAR_CHOICES = []
     for r in range(1901, (datetime.datetime.now().year + 1)):
@@ -49,7 +49,7 @@ class Offer(models.Model):
 
 
 class Image(models.Model):
-    referencing_offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    referencing_offer = models.ForeignKey(Post, on_delete=models.CASCADE)
     image = models.FileField(upload_to='images')
 
 

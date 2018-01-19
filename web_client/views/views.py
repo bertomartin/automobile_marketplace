@@ -1,43 +1,15 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.http import JsonResponse
-# from web_client.forms import SignUpForm as CreateUser
 from web_client.forms import *
 from web_client.models import *
 
 
-# class SignUpForm(View):
-#     template_name = 'registration/signup.html'
-#
-#     def get(self, request):
-#         form = CreateUser(None)
-#         return render(request, self.template_name, {'form': form})
-#
-#     def post(self, request):
-#         form = CreateUser(request.POST)
-#
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password1']
-#
-#             # properly set/change password
-#             user.set_password(password)
-#             user.save()
-#
-#             user = authenticate(username=username, password=password)
-#
-#             if user is not None:
-#                 if user.is_active:
-#                     login(request, user)
-#                     return redirect('welcome')
-#
-#         return render(request, self.template_name, {'form': form})
-
-
 class WelcomePage(View):
     template_name = 'welcome/welcome.html'
+    # TODO: different welcome pages for contractors and customers
 
     def get(self, request):
         return render(request, self.template_name, {'testval': self.template_name})
@@ -50,7 +22,7 @@ class Homepage(View):
     post_representation = 'homepage/post_details.html'
     post_left_modal = 'homepage/contact_information_modal.html'
     post_right_modal = 'homepage/workshop_list_modal.html'
-    list_of_offers = Offer.objects.all()
+    list_of_offers = Post.objects.all()
 
     def get(self, request):
         if not request.user.is_authenticated:
@@ -67,23 +39,24 @@ class Homepage(View):
                                                     'ad_bar': self.ad_bar})
 
 
-class OfferView(View):
-    template_name = ''
+# class OfferView(View):
+#     template_name = ''
+#
+#     def get_offer(self, offer_id):
+#         try:
+#             return Post.objects.get(id=offer_id)
+#         except:
+#             return None
+#
+#     def get(self, request, offer_id):
+#         query_result = self.get_offer(offer_id)
+#         return render(request, self.template_name, {'query_result': query_result})
 
-    def get_offer(self, offer_id):
-        try:
-            return Offer.objects.get(id=offer_id)
-        except:
-            return None
 
-    def get(self, request, offer_id):
-        query_result = self.get_offer(offer_id)
-        return render(request, self.template_name, {'query_result': query_result})
-
-
-class CreateOffer(View):
+@method_decorator([login_required], name='dispatch')
+class CreatePost(View):
     template_name = 'offer/offer_form.html'
-    model = Offer
+    model = Post
     fields = ['make', 'model', 'engine', 'body_type']
 
     def get(self, request):
@@ -102,20 +75,13 @@ class CreateOffer(View):
         return render(request, self.template_name, {'form': form})
 
 
-class TestModal(View):
-    def get(self):
-        pass
-
-    def post(self):
-        pass
-
-
-class UserOffers(View):
+@method_decorator([login_required], name='dispatch')
+class UserPosts(View):
     template_name = 'user_offers/user_offers.html'
 
     def get(self, request):
-        offers = Offer.objects.filter(owner=request.user)
-        return render(request, self.template_name, {'offers': offers})
+        posts = Post.objects.filter(owner=request.user)
+        return render(request, self.template_name, {'offers': posts})
 
     def post(self, request):
         pass
@@ -143,7 +109,7 @@ def request_inspection(request):
         post_id = request.GET.get('post_id')
         # TODO: add inspection logic
         contractor = Contractor.objects.get(id=contractor_id)
-        vehicle = Offer.objects.get(offer_id=post_id)
+        vehicle = Post.objects.get(offer_id=post_id)
         return JsonResponse({'status': 'ok',
                              'contractor': contractor.title,
                              'vehicle': vehicle.make})

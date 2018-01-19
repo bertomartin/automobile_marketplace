@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from web_client.forms import CustomerSignUpForm
 
 
-class CustomerSignUp(CreateView):
+class SignUp(CreateView):
     template_name = 'registration/signup.html'
 
     def get(self, request, *args, **kwargs):
