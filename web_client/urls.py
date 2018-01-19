@@ -1,10 +1,11 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 from web_client.views import views, contractor, customer
 
 urlpatterns = [
     url(r'^$', views.Homepage.as_view(), name='homepage'),
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/signup/customer/$', customer.SignUp.as_view(), name='customer_signup'),
     url(r'^accounts/signup/contractor/$', contractor.SignUp.as_view(), name='contractor_signup'),
     url(r'^accounts/login/$', auth_views.login, name='login'),

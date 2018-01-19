@@ -9,7 +9,7 @@
             <div class="page-header">
                 <h2>Create Your Account</h2>
             </div>
-            <form class="form-horizontal" action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" action="{% url 'customer_signup' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <p>{{ form.non_field_errors }}</p>
                 {% for field in form %}
