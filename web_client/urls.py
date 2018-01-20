@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^accounts/signup/customer/$', customer.SignUp.as_view(), name='customer_signup'),
     url(r'^accounts/signup/contractor/$', contractor.SignUp.as_view(), name='contractor_signup'),
     url(r'^accounts/login/$', auth_views.login, name='login'),
-    url(r'^accounts/logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     # Offers management
     url(r'^offer/add/$', views.CreatePost.as_view(), name='new_offer'),

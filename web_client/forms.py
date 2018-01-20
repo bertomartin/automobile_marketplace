@@ -31,6 +31,30 @@ class CustomerSignUpForm(UserCreationForm):
         return user
 
 
+class ContractorSignUpForm(UserCreationForm):
+
+    title = forms.CharField(max_length=20, required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(ContractorSignUpForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username', 'title']
+
+    @transaction.atomic
+    def save(self):
+        user = super().save(commit=False)
+        user.is_contractor = True
+        user.save()
+        contractor = ContractorModel.objects.create(user=user)
+        contractor.title = (self.cleaned_data.get('title'))
+        contractor.save()
+        return user
+
+
 class OfferForm(forms.ModelForm):
 
     make = forms.ModelChoiceField(queryset=Manufacturer.objects.all())

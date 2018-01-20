@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import datetime
 import uuid
+phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
 
 class User(AbstractUser):
@@ -17,8 +18,13 @@ class CustomerModel(models.Model):
 class ContractorModel(models.Model):
     user = models.OneToOneField(User, related_name="contractor_user", on_delete=models.CASCADE, primary_key=True)
 
-
-phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    title = models.CharField(max_length=100, blank=False)
+    street = models.TextField(max_length=100, blank=False)
+    city = models.CharField(max_length=20, blank=False)
+    country = models.CharField(max_length=40, blank=False)
+    email = models.EmailField(blank=True)
+    status = models.BooleanField(default=False)
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
 
 class Currency(models.Model):
