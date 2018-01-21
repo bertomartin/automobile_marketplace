@@ -6,8 +6,10 @@ urlpatterns = [
     url(r'^$', views.Homepage.as_view(), name='homepage'),
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/signup/customer/$', customer.SignUp.as_view(), name='customer_signup'),
-    url(r'^accounts/signup/contractor/$', contractor.SignUp.as_view(), name='contractor_signup'),
+    url(r'^accounts/signup/customer$', customer.SignUp.as_view(), name='customer_signup'),
+    # url(r'^accounts/signup/customer/edit$', customer.EditUserDetails.as_view(), name='finish_customer_signup'),
+    url(r'^accounts/signup/contractor$', contractor.SignUp.as_view(), name='contractor_signup'),
+    url(r'^accounts/signup/contractor/edit$', contractor.EditUserDetails.as_view(), name='edit_contractor'),
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
