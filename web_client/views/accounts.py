@@ -64,6 +64,6 @@ class EditUserDetails(View):
 
         if form.is_valid():
             form.save()
-            return redirect('welcome')
+            return redirect('homepage')
 
         return render(request, self.template_name, {'form': form, 'title': 'We might need some additional information...', 'registration': 'Step 2'})
