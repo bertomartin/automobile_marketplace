@@ -1,15 +1,14 @@
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
-from web_client.views import views, contractor, customer
+from web_client.views import views, contractor, customer, accounts
 
 urlpatterns = [
     url(r'^$', views.Homepage.as_view(), name='homepage'),
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/signup/customer/$', customer.SignUp.as_view(), name='customer_signup'),
-    url(r'^accounts/signup/customer/edit/$', customer.EditUserDetails.as_view(), name='edit_customer'),
-    url(r'^accounts/signup/contractor/$', contractor.SignUp.as_view(), name='contractor_signup'),
-    url(r'^accounts/signup/contractor/edit/$', contractor.EditUserDetails.as_view(), name='edit_contractor'),
+    url(r'^accounts/signup/(?P<type>[\w\-]+)/$', accounts.SignUp.as_view(), name='signup'),
+    url(r'^accounts/edit/$', accounts.EditUserDetails.as_view(), name='edit_user'),
+
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
