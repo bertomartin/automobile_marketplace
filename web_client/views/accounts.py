@@ -34,7 +34,7 @@ class SignUp(CreateView):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('edit_user')
+                    return redirect('welcome')
 
         return render(request, self.template_name, {'form': form, 'title': 'Create new account', 'registration': 'Step 1'})
 
@@ -57,7 +57,7 @@ class EditUserDetails(View):
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(request)
-        return render(request, self.template_name, {'form': form, 'title': 'Edit your account', 'registration': 'Step 2'})
+        return render(request, self.template_name, {'form': form, 'title': 'We might need some additional information...', 'registration': 'Step 2'})
 
     def post(self, request, *args, **kwargs):
         form = self.post_form(request)
@@ -66,4 +66,4 @@ class EditUserDetails(View):
             form.save()
             return redirect('welcome')
 
-        return render(request, self.template_name, {'form': form, 'title': 'Edit your account', 'registration': 'Step 2'})
+        return render(request, self.template_name, {'form': form, 'title': 'We might need some additional information...', 'registration': 'Step 2'})
