@@ -88,14 +88,3 @@ class OfferForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description', 'price', 'phone_number', 'contact_person']
-
-
-class ContractorForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ContractorForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
-
-    class Meta:
-        model = Contractor
-        fields = ['title', 'street', 'city', 'country', 'email', 'status', 'phone_number']

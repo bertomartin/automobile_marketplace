@@ -17,9 +17,6 @@ urlpatterns = [
     url(r'^offers/$', views.UserPosts.as_view(), name='user_offers'),
     # url(r'^offer/(?P<offer_id>[0-9a-f-]+)$', views.OfferView.as_view(), name='offer'),
 
-    # Contractors management
-    url(r'^contractors/add/$', views.CreateContractor.as_view(), name='add_contractor'),
-
     # Vehicle inspection
     url(r'^ajax/inspect/$', views.request_inspection, name='request_inspection'),
     url(r'^ajax/search/$', views.autocomplete, name='autocomplete'),

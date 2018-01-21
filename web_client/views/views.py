@@ -28,7 +28,7 @@ class Homepage(View):
         if not request.user.is_authenticated:
             contractors = None
         else:
-            contractors = Contractor.objects.all()
+            contractors = ContractorModel.objects.filter(status=True)
 
         return render(request, self.template_name, {'offers': self.list_of_offers,
                                                     'contractors': contractors,
@@ -87,28 +87,11 @@ class UserPosts(View):
         pass
 
 
-class CreateContractor(View):
-    template_name = 'contractor/contractor_form.html'
-
-    def get(self, request):
-        form = ContractorForm
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request):
-        form = ContractorForm(request.POST)
-        if form.is_valid():
-            contractor = form.save(commit=False)
-            contractor.save()
-            return redirect('homepage')
-
-        return render(request, self.template_name, {'form': form})
-
-
 def request_inspection(request):
         contractor_id = request.GET.get('contractor_id')
         post_id = request.GET.get('post_id')
         # TODO: add inspection logic
-        contractor = Contractor.objects.get(id=contractor_id)
+        contractor = ContractorModel.objects.get(user_id=contractor_id)
         vehicle = Post.objects.get(offer_id=post_id)
         return JsonResponse({'status': 'ok',
                              'contractor': contractor.title,

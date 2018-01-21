@@ -90,18 +90,6 @@ class EngineCapacity(models.Model):
         return str(self.engine_capacity)
 
 
-class Contractor(models.Model):
-
-    title = models.CharField(max_length=100, blank=False)
-    street = models.TextField(max_length=100, blank=False)
-    city = models.CharField(max_length=20, blank=False)
-    country = models.CharField(max_length=40, blank=False)
-    email = models.EmailField(blank=True)
-    status = models.BooleanField(default=False)
-
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
-
-
 class Country(models.Model):
     country = models.CharField(max_length=40, blank=False)
 
