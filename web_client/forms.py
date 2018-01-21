@@ -31,6 +31,18 @@ class CustomerSignUpForm(UserCreationForm):
         return user
 
 
+class UpdateCustomerForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateCustomerForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+    class Meta:
+        model = CustomerModel
+        fields = ['name', 'email', 'phone_number']
+
+
 class ContractorSignUpForm(UserCreationForm):
 
     # title = forms.CharField(max_length=20, required=True)

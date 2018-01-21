@@ -13,6 +13,9 @@ class User(AbstractUser):
 
 class CustomerModel(models.Model):
     user = models.OneToOneField(User, related_name="customer_user", on_delete=models.CASCADE, primary_key=True)
+    name = models.CharField(max_length=30, blank=True)
+    email = models.EmailField(blank=True)
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
 
 class ContractorModel(models.Model):
