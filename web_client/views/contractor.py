@@ -10,7 +10,7 @@ class SignUp(CreateView):
 
     def get(self, request, *args, **kwargs):
         form = ContractorSignUpForm(None)
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'title': 'Create new account', 'registration': 'Step 1'})
 
     def post(self, request, *args, **kwargs):
         form = ContractorSignUpForm(request.POST)
@@ -24,7 +24,7 @@ class SignUp(CreateView):
                     login(request, user)
                     return redirect('edit_contractor')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'title': 'Create new account', 'registration': 'Step 1'})
 
 
 class EditUserDetails(View):
@@ -33,7 +33,7 @@ class EditUserDetails(View):
     def get(self, request, *args, **kwargs):
 
         form = UpdateContractorForm(instance=ContractorModel.objects.filter(user_id=request.user).first())
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'title': 'Edit your account', 'registration': 'Step 2'})
 
     def post(self, request, *args, **kwargs):
         form = UpdateContractorForm(data=request.POST, instance=ContractorModel.objects.filter(user_id=request.user).first())
@@ -42,4 +42,4 @@ class EditUserDetails(View):
             form.save()
             return redirect('welcome')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'title': 'Edit your account', 'registration': 'Step 2'})

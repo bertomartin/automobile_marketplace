@@ -19,7 +19,7 @@ class ContractorModel(models.Model):
     user = models.OneToOneField(User, related_name="contractor_user", on_delete=models.CASCADE, primary_key=True)
 
     title = models.CharField(max_length=100, blank=False)
-    street = models.TextField(max_length=100, blank=False)
+    street = models.CharField(max_length=100, blank=False)
     city = models.CharField(max_length=20, blank=False)
     country = models.CharField(max_length=40, blank=False)
     email = models.EmailField(blank=True)

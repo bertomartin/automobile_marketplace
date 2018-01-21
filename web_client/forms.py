@@ -33,7 +33,7 @@ class CustomerSignUpForm(UserCreationForm):
 
 class ContractorSignUpForm(UserCreationForm):
 
-    title = forms.CharField(max_length=20, required=True)
+    # title = forms.CharField(max_length=20, required=True)
 
     def __init__(self, *args, **kwargs):
         super(ContractorSignUpForm, self).__init__(*args, **kwargs)
@@ -42,7 +42,7 @@ class ContractorSignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'title']
+        # fields = ['username']
 
     @transaction.atomic
     def save(self):
@@ -50,7 +50,7 @@ class ContractorSignUpForm(UserCreationForm):
         user.is_contractor = True
         user.save()
         contractor = ContractorModel.objects.create(user=user)
-        contractor.title = (self.cleaned_data.get('title'))
+        # contractor.title = (self.cleaned_data.get('title'))
         contractor.save()
         return user
 
@@ -64,7 +64,7 @@ class UpdateContractorForm(forms.ModelForm):
 
     class Meta:
         model = ContractorModel
-        fields = ['title', 'street', 'city', 'country', 'status']
+        fields = ['title', 'street', 'city', 'country', 'email', 'phone_number', 'status']
 
 
 class OfferForm(forms.ModelForm):
