@@ -57,6 +57,14 @@ class Post(models.Model):
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=False)
 
 
+class InspectionRequest(models.Model):
+
+    status = models.BooleanField(default=True)
+    corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    responsible_contractor = models.ForeignKey(User, on_delete=models.CASCADE)
+    requesting_customer = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Image(models.Model):
     referencing_offer = models.ForeignKey(Post, on_delete=models.CASCADE)
     image = models.FileField(upload_to='images')
