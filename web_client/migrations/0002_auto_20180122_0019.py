@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='post',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_client.CustomerModel'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web_client.Customer'),
         ),
     ]

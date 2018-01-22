@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from web_client.models import ContractorModel, CustomerModel
+from web_client.models import Contractor, Customer
 from web_client.forms import ContractorSignUpForm, UpdateContractorForm, CustomerSignUpForm, UpdateCustomerForm
 
 
@@ -45,15 +45,15 @@ class EditUserDetails(View):
 
     def get_form(self, request):
         if request.user.is_contractor:
-            return UpdateContractorForm(instance=ContractorModel.objects.filter(user_id=request.user).first())
+            return UpdateContractorForm(instance=Contractor.objects.filter(user_id=request.user).first())
         else:
-            return UpdateCustomerForm(instance=CustomerModel.objects.filter(user_id=request.user).first())
+            return UpdateCustomerForm(instance=Customer.objects.filter(user_id=request.user).first())
 
     def post_form(self, request):
         if request.user.is_contractor:
-            return UpdateContractorForm(data=request.POST, instance=ContractorModel.objects.filter(user_id=request.user).first())
+            return UpdateContractorForm(data=request.POST, instance=Contractor.objects.filter(user_id=request.user).first())
         else:
-            return UpdateCustomerForm(data=request.POST, instance=CustomerModel.objects.filter(user_id=request.user).first())
+            return UpdateCustomerForm(data=request.POST, instance=Customer.objects.filter(user_id=request.user).first())
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(request)

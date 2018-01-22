@@ -28,7 +28,7 @@ class Homepage(View):
         if not request.user.is_authenticated:
             contractors = None
         else:
-            contractors = ContractorModel.objects.filter(status=True)
+            contractors = Contractor.objects.filter(status=True)
 
         return render(request, self.template_name, {'offers': self.list_of_offers,
                                                     'contractors': contractors,
@@ -60,7 +60,7 @@ class CreatePost(View):
     fields = ['make', 'model', 'engine', 'body_type']
 
     def get(self, request):
-        form = OfferForm(initial={'contact_person': CustomerModel.objects.filter(user_id=request.user).first().name})
+        form = OfferForm(initial={'contact_person': Customer.objects.filter(user_id=request.user).first().name})
         maker_list = Manufacturer.objects.all()
         return render(request, self.template_name, {'form': form, 'maker_list': maker_list})
 
@@ -91,7 +91,7 @@ def request_inspection(request):
         contractor_id = request.GET.get('contractor_id')
         post_id = request.GET.get('post_id')
         # TODO: add inspection logic
-        contractor = ContractorModel.objects.get(user_id=contractor_id)
+        contractor = Contractor.objects.get(user_id=contractor_id)
         vehicle = Post.objects.get(offer_id=post_id)
         return JsonResponse({'status': 'ok',
                              'contractor': contractor.title,

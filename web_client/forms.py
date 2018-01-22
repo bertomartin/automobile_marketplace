@@ -21,7 +21,7 @@ class CustomerSignUpForm(UserCreationForm):
         user = super().save(commit=False)
         user.is_customer = True
         user.save()
-        CustomerModel.objects.create(user=user)
+        Customer.objects.create(user=user)
         return user
 
 
@@ -33,7 +33,7 @@ class UpdateCustomerForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
-        model = CustomerModel
+        model = Customer
         fields = ['name', 'email', 'phone_number']
 
 
@@ -54,7 +54,7 @@ class ContractorSignUpForm(UserCreationForm):
         user = super().save(commit=False)
         user.is_contractor = True
         user.save()
-        contractor = ContractorModel.objects.create(user=user)
+        contractor = Contractor.objects.create(user=user)
         # contractor.title = (self.cleaned_data.get('title'))
         contractor.save()
         return user
@@ -68,7 +68,7 @@ class UpdateContractorForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
-        model = ContractorModel
+        model = Contractor
         fields = ['title', 'street', 'city', 'country', 'email', 'phone_number', 'status']
 
 

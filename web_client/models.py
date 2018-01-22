@@ -11,14 +11,14 @@ class User(AbstractUser):
     is_contractor = models.BooleanField(default=False)
 
 
-class CustomerModel(models.Model):
+class Customer(models.Model):
     user = models.OneToOneField(User, related_name="customer_user", on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(blank=True)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
 
-class ContractorModel(models.Model):
+class Contractor(models.Model):
     user = models.OneToOneField(User, related_name="contractor_user", on_delete=models.CASCADE, primary_key=True)
 
     title = models.CharField(max_length=100, blank=False)
@@ -62,7 +62,7 @@ class InspectionRequest(models.Model):
     status = models.BooleanField(default=True)
     corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     responsible_contractor = models.ForeignKey(User, on_delete=models.CASCADE)
-    requesting_customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    requesting_customer = models.ForeignKey(User, related_name="requesting_customer", on_delete=models.CASCADE)
 
 
 class Image(models.Model):
