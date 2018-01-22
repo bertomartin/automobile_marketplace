@@ -60,7 +60,7 @@ class CreatePost(View):
     fields = ['make', 'model', 'engine', 'body_type']
 
     def get(self, request):
-        form = OfferForm(initial={'contact_person': request.user.first_name})
+        form = OfferForm(initial={'contact_person': CustomerModel.objects.filter(user_id=request.user).first().name})
         maker_list = Manufacturer.objects.all()
         return render(request, self.template_name, {'form': form, 'maker_list': maker_list})
 
@@ -77,7 +77,7 @@ class CreatePost(View):
 
 @method_decorator([login_required], name='dispatch')
 class UserPosts(View):
-    template_name = 'user_offers/user_offers.html'
+    template_name = 'homepage/user_offers.html'
 
     def get(self, request):
         posts = Post.objects.filter(owner=request.user)

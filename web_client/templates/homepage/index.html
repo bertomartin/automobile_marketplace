@@ -49,16 +49,24 @@
                                    aria-expanded="false">Your cockpit<span class="caret"></span></a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'edit_user' %}">Account</a></li>
-                                    <li><a href="{% url 'user_offers' %}">Your offers</a></li>
-                                    <li><a href="{% url 'new_offer' %}">Create offer</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="{% url 'logout' %}">Log out</a></li>
+
+
                                     {% if request.user.is_superuser %}
-                                        <li role="separator" class="divider"></li>
                                         <li class="dropdown-header">Administrator section</li>
                                         <li><a href="admin/">Manage</a></li>
+                                    {% elif request.user.is_contractor %}
+                                        <li><a href="{% url 'edit_user' %}">Account</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Inspection requests</a></li>
+                                    {% elif request.user.is_customer %}
+                                        <li><a href="{% url 'edit_user' %}">Account</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{% url 'user_offers' %}">Your offers</a></li>
+                                        <li><a href="{% url 'new_offer' %}">Create offer</a></li>
                                     {% endif %}
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{% url 'logout' %}">Log out</a></li>
+
                                 </ul>
 
                             </li>
