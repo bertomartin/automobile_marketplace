@@ -16,7 +16,7 @@
                 <div class="modal-body" style="overflow-y: scroll; height:300px;">
                     {% for contractor in contractors %}
                         <div class="list-group">
-                            <a href="#" class="list-group-item" id="{{ contractor.id }}">
+                            <a href="#" class="list-group-item workshop-item" id="{{ contractor.user_id }}">
                                 <h4 class="list-group-item-heading">{{ contractor.title }}</h4>
                                 <p class="list-group-item-text"> {{ contractor.street }}</p>
                                 <p class="list-group-item-text"> {{ contractor.city }}</p>

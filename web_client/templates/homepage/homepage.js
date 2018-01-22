@@ -19,7 +19,7 @@ function request_inspection(contractor_id, post_id) {
 
 $('.workshops').on('shown.bs.modal', function() {
     selected_post_id = $(this).find('#post-id').val();
-    console.log(selected_post_id);
+    console.log('Inspection modal for post with id: ', selected_post_id);
 });
 
 $('.workshops').on('hidden.bs.modal', function () {
@@ -31,8 +31,8 @@ $('.workshops').on('hidden.bs.modal', function () {
 });
 
 //Selects/deselects item in 'workshop list' modal.
-$('.list-group-item').click(function () {
-    // console.log(this.id);
+$('.workshop-item').click(function () {
+    // console.log(this);
     $(selected_list_item).removeClass('active');
     selected_list_item = this;
     $(this).addClass('active');
