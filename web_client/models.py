@@ -63,6 +63,7 @@ class InspectionRequest(models.Model):
     corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     responsible_contractor = models.ForeignKey(User, on_delete=models.CASCADE)
     requesting_customer = models.ForeignKey(User, related_name="requesting_customer", on_delete=models.CASCADE)
+    inspection_result = models.TextField(blank=True)
 
 
 class Image(models.Model):
