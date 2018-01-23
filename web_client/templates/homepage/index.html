@@ -61,8 +61,8 @@
                                     {% elif request.user.is_customer %}
                                         <li><a href="{% url 'edit_user' %}">Account</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="{% url 'user_offers' %}">Your offers</a></li>
-                                        <li><a href="{% url 'new_offer' %}">Create offer</a></li>
+                                        <li><a href="{% url 'user_offers' %}">Your posts</a></li>
+                                        <li><a href="{% url 'new_offer' %}">New post</a></li>
                                         <li><a href="#">Inspection requests</a></li>
                                     {% endif %}
                                     <li role="separator" class="divider"></li>
@@ -80,7 +80,11 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'login' %}">Authorise</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="{% url 'signup' 'customer' %}">Not our customer yet?<br>Sign up!</a></li>
+                                    <li class="dropdown-header">Not our customer yet?<br>Sign up!</li>
+                                    <li><a href="{% url 'signup' 'customer' %}">Create Customer Account</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="dropdown-header">Become our authorised service center!</li>
+                                    <li><a href="{% url 'signup' 'contractor' %}">Create Service Center Account</a></li>
                                 </ul>
                             </li>
                         {% endif %}
