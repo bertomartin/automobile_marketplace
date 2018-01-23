@@ -108,8 +108,7 @@ def request_inspection(request):
             print('Couldn\'t create inspection request: \n', e)
 
         return JsonResponse({'request_created': request_created,
-                             'contractor': contractor.username,
-                             'post': post.pk})
+                             'contractor': Contractor.objects.get(pk=request.GET.get('contractor_id')).title})
 
 
 def autocomplete(request):

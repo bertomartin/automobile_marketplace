@@ -12,6 +12,11 @@ function request_inspection(contractor_id, post_id) {
         data: payload,
         dataType: 'json',
         success: function (data) {
+            if (data.request_created === true){
+                console.log('Your request to ' + data.contractor + ' was successfully created.');
+            } else {
+                console.log('You have already requested this inspection.');
+            }
             console.log(data);
         }
     });
