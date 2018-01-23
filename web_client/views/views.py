@@ -92,16 +92,22 @@ def request_inspection(request):
         post = Post.objects.get(offer_id=request.GET.get('post_id'))
 
         try:
-            inspection = InspectionRequest(corresponding_post=post,
-                                           responsible_contractor=contractor,
-                                           requesting_customer=request.user)
-            inspection.save()
-            request_created = True
+            if len(InspectionRequest.objects.filter(corresponding_post=post,
+                                                    responsible_contractor=contractor,
+                                                    requesting_customer=request.user)) > 0:
+                # print('This request already exists')
+                request_created = False
+            else:
+                inspection = InspectionRequest(corresponding_post=post,
+                                               responsible_contractor=contractor,
+                                               requesting_customer=request.user)
+                inspection.save()
+                request_created = True
         except Exception as e:
             request_created = False
             print('Couldn\'t create inspection request: \n', e)
 
-        return JsonResponse({'status': request_created,
+        return JsonResponse({'request_created': request_created,
                              'contractor': contractor.username,
                              'post': post.pk})
 
