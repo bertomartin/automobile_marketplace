@@ -88,14 +88,22 @@ class UserPosts(View):
 
 
 def request_inspection(request):
-        contractor_id = request.GET.get('contractor_id')
-        post_id = request.GET.get('post_id')
-        # TODO: add inspection logic
-        contractor = Contractor.objects.get(user_id=contractor_id)
-        vehicle = Post.objects.get(offer_id=post_id)
-        return JsonResponse({'status': 'ok',
-                             'contractor': contractor.title,
-                             'vehicle': vehicle.make})
+        contractor = User.objects.get(pk=request.GET.get('contractor_id'))
+        post = Post.objects.get(offer_id=request.GET.get('post_id'))
+
+        try:
+            inspection = InspectionRequest(corresponding_post=post,
+                                           responsible_contractor=contractor,
+                                           requesting_customer=request.user)
+            inspection.save()
+            request_created = True
+        except Exception as e:
+            request_created = False
+            print('Couldn\'t create inspection request: \n', e)
+
+        return JsonResponse({'status': request_created,
+                             'contractor': contractor.username,
+                             'post': post.pk})
 
 
 def autocomplete(request):
