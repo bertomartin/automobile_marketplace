@@ -22,15 +22,15 @@ class Homepage(View):
     post_representation = 'homepage/post_details.html'
     post_left_modal = 'homepage/contact_information_modal.html'
     post_right_modal = 'homepage/workshop_list_modal.html'
-    list_of_offers = Post.objects.all()
 
     def get(self, request):
+        list_of_offers = Post.objects.all()
         if not request.user.is_authenticated:
             contractors = None
         else:
             contractors = Contractor.objects.filter(status=True)
 
-        return render(request, self.template_name, {'offers': self.list_of_offers,
+        return render(request, self.template_name, {'offers': list_of_offers,
                                                     'contractors': contractors,
                                                     'post_left_modal': self.post_left_modal,
                                                     'post_right_modal': self.post_right_modal,
