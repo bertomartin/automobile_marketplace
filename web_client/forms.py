@@ -88,3 +88,21 @@ class OfferForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description', 'price', 'phone_number', 'contact_person']
+
+
+class Search(forms.Form):
+
+    make = forms.ModelChoiceField(queryset=Manufacturer.objects.all())
+    engine_type = forms.ModelChoiceField(queryset=EngineType.objects.all())
+    engine_capacity = forms.ModelChoiceField(queryset=EngineCapacity.objects.all())
+    body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
+    price_bottom = forms.IntegerField(min_value=1)
+    price_top = forms.IntegerField(max_value=10000000)
+
+    def __init__(self, *args, **kwargs):
+        super(Search, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+    class Meta:
+        fields = ['make', 'engine_type', 'engine_capacity', 'body_type', 'price_bottom', 'price_top']

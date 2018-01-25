@@ -25,6 +25,7 @@ class Homepage(View):
 
     def get(self, request):
         list_of_offers = Post.objects.all()
+        search_form = Search()
         if not request.user.is_authenticated:
             contractors = None
         else:
@@ -32,25 +33,12 @@ class Homepage(View):
 
         return render(request, self.template_name, {'offers': list_of_offers,
                                                     'contractors': contractors,
+                                                    'search_form': search_form,
                                                     'post_left_modal': self.post_left_modal,
                                                     'post_right_modal': self.post_right_modal,
                                                     'post_representation': self.post_representation,
                                                     'view_options': self.view_options,
                                                     'ad_bar': self.ad_bar})
-
-
-# class OfferView(View):
-#     template_name = ''
-#
-#     def get_offer(self, offer_id):
-#         try:
-#             return Post.objects.get(id=offer_id)
-#         except:
-#             return None
-#
-#     def get(self, request, offer_id):
-#         query_result = self.get_offer(offer_id)
-#         return render(request, self.template_name, {'query_result': query_result})
 
 
 @method_decorator([login_required], name='dispatch')
@@ -111,8 +99,9 @@ def request_inspection(request):
                              'contractor': Contractor.objects.get(pk=request.GET.get('contractor_id')).title})
 
 
-def autocomplete(request):
+def search(request):
     search_keyword = request.GET.get('keyword')
     # TODO: get all objects containing 'keyword'
-    autocompleter_values = {}
+    autocompleter_values = {'test': 'test'}
     return JsonResponse(autocompleter_values)
+    # return redirect('homepage', autocompleter_values)

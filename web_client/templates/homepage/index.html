@@ -95,11 +95,12 @@
                     <h4 class="modal-title" id="myModalLabel">Customize your search</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <form action="{% url 'search' %}" id="search-form"></form>
+                    {{ search_form }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Search...</button>
+                    <button type="submit" class="btn btn-primary" form="search-form">Search...</button>
                 </div>
             </div>
         </div>
@@ -128,7 +129,7 @@
 {% block customscript %}
     <script>
     var request_inspection_ulr = '{% url 'request_inspection' %}';
-    var autocomplete_url = '{% url 'autocomplete' %}';
+    var autocomplete_url = '{% url 'search' %}';
     </script>
     <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}

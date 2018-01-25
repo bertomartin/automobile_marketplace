@@ -19,7 +19,7 @@ urlpatterns = [
 
     # Vehicle inspection
     url(r'^ajax/inspect/$', views.request_inspection, name='request_inspection'),
-    url(r'^ajax/search/$', views.autocomplete, name='autocomplete'),
+    url(r'^ajax/search/$', views.search, name='search'),
 
     # url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
     # url(r'^search/$', views.Search.as_view(), name='search'),

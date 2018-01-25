@@ -45,15 +45,15 @@ class EditUserDetails(View):
 
     def get_form(self, request):
         if request.user.is_contractor:
-            return UpdateContractorForm(instance=Contractor.objects.filter(user_id=request.user).first())
+            return UpdateContractorForm(instance=Contractor.objects.get(user_id=request.user))
         else:
-            return UpdateCustomerForm(instance=Customer.objects.filter(user_id=request.user).first())
+            return UpdateCustomerForm(instance=Customer.objects.get(user_id=request.user))
 
     def post_form(self, request):
         if request.user.is_contractor:
-            return UpdateContractorForm(data=request.POST, instance=Contractor.objects.filter(user_id=request.user).first())
+            return UpdateContractorForm(data=request.POST, instance=Contractor.objects.get(user_id=request.user))
         else:
-            return UpdateCustomerForm(data=request.POST, instance=Customer.objects.filter(user_id=request.user).first())
+            return UpdateCustomerForm(data=request.POST, instance=Customer.objects.get(user_id=request.user))
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(request)
