@@ -62,6 +62,8 @@ class ContractorSignUpForm(UserCreationForm):
 
 class UpdateContractorForm(forms.ModelForm):
 
+    status = forms.BooleanField(label='Active status', required=False)
+
     def __init__(self, *args, **kwargs):
         super(UpdateContractorForm, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -94,7 +96,7 @@ class Search(forms.Form):
 
     make = forms.ModelChoiceField(queryset=Manufacturer.objects.all())
     engine_type = forms.ModelChoiceField(queryset=EngineType.objects.all())
-    engine_capacity = forms.ModelChoiceField(queryset=EngineCapacity.objects.all())
+    engine_capacity = forms.ModelChoiceField(label='Capacity', queryset=EngineCapacity.objects.all())
     body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
     price_bottom = forms.IntegerField(min_value=1)
     price_top = forms.IntegerField(max_value=10000000)
