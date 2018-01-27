@@ -92,17 +92,17 @@ class OfferForm(forms.ModelForm):
         fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description', 'price', 'phone_number', 'contact_person']
 
 
-class Search(forms.Form):
+class SearchForm(forms.Form):
 
-    make = forms.ModelChoiceField(queryset=Manufacturer.objects.all())
-    engine_type = forms.ModelChoiceField(queryset=EngineType.objects.all())
-    engine_capacity = forms.ModelChoiceField(label='Capacity', queryset=EngineCapacity.objects.all())
-    body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
-    price_bottom = forms.IntegerField(min_value=1)
-    price_top = forms.IntegerField(max_value=10000000)
+    make = forms.ModelChoiceField(label='Manufacturer', queryset=Manufacturer.objects.all(), required=False)
+    engine_type = forms.ModelChoiceField(label='Engine', queryset=EngineType.objects.all(), required=False)
+    engine_capacity = forms.ModelChoiceField(label='Capacity', queryset=EngineCapacity.objects.all(), required=False)
+    body_type = forms.ModelChoiceField(queryset=BodyType.objects.all(), required=False)
+    price_bottom = forms.IntegerField(min_value=1, required=False)
+    price_top = forms.IntegerField(max_value=10000000, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(Search, self).__init__(*args, **kwargs)
+        super(SearchForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 

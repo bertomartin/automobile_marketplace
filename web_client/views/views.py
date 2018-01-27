@@ -25,7 +25,7 @@ class Homepage(View):
 
     def get(self, request):
         list_of_offers = Post.objects.all()
-        search_form = Search()
+        search_form = SearchForm()
         if not request.user.is_authenticated:
             contractors = None
         else:
@@ -100,8 +100,11 @@ def request_inspection(request):
 
 
 def search(request):
-    search_keyword = request.GET.get('keyword')
-    # TODO: get all objects containing 'keyword'
-    autocompleter_values = {'test': 'test'}
-    return JsonResponse(autocompleter_values)
-    # return redirect('homepage', autocompleter_values)
+    form = SearchForm(request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        for field in form.cleaned_data:
+            if form.cleaned_data.get(field) is not None:
+                print(field, form.cleaned_data.get(field))
+    # TODO: redirect to 'search' view with parameters
+    return redirect('homepage')
