@@ -57,7 +57,7 @@ class EditUserDetails(View):
 
     def get(self, request, *args, **kwargs):
         form = self.get_form(request)
-        return render(request, self.template_name, {'form': form, 'title': 'We might need some additional information...', 'registration': 'Step 2'})
+        return render(request, self.template_name, {'form': form, 'title': 'Edit information about your account'})
 
     def post(self, request, *args, **kwargs):
         form = self.post_form(request)
@@ -66,4 +66,4 @@ class EditUserDetails(View):
             form.save()
             return redirect('homepage')
 
-        return render(request, self.template_name, {'form': form, 'title': 'We might need some additional information...', 'registration': 'Step 2'})
+        return render(request, self.template_name, {'form': form, 'title': 'Edit information about your account'})
