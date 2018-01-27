@@ -95,7 +95,7 @@
                     <h4 class="modal-title" id="myModalLabel">Customize your search</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'search' %}" id="search-form"></form>
+                    <form action="{% url 'search' %}" method="post" id="search-form">{% csrf_token %}
                     <div class="row">
                         {% for field in search_form %}
 
@@ -122,6 +122,7 @@
 
                         {% endfor %}
                     </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
