@@ -95,7 +95,7 @@
                     <h4 class="modal-title" id="myModalLabel">Customize your search</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'search' %}" method="post" id="search-form">{% csrf_token %}
+                    <form action="" method="post" id="search-form">{% csrf_token %}
                     <div class="row">
                         {% for field in search_form %}
 
@@ -154,8 +154,7 @@
 
 {% block customscript %}
     <script>
-    var request_inspection_ulr = '{% url 'request_inspection' %}';
-    var autocomplete_url = '{% url 'search' %}';
+        var request_inspection_ulr = '{% url 'request_inspection' %}';
     </script>
     <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}

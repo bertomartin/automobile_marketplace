@@ -9,7 +9,6 @@ from web_client.models import *
 
 class WelcomePage(View):
     template_name = 'welcome/welcome.html'
-    # TODO: different welcome pages for contractors and customers
 
     def get(self, request):
         return render(request, self.template_name, {'testval': self.template_name})
@@ -25,6 +24,7 @@ class Homepage(View):
 
     def get(self, request):
         list_of_offers = Post.objects.all()
+        results_found = len(list_of_offers)
         search_form = SearchForm()
         if not request.user.is_authenticated:
             contractors = None
@@ -32,6 +32,41 @@ class Homepage(View):
             contractors = Contractor.objects.filter(status=True)
 
         return render(request, self.template_name, {'offers': list_of_offers,
+                                                    'results_found': results_found,
+                                                    'contractors': contractors,
+                                                    'search_form': search_form,
+                                                    'post_left_modal': self.post_left_modal,
+                                                    'post_right_modal': self.post_right_modal,
+                                                    'post_representation': self.post_representation,
+                                                    'view_options': self.view_options,
+                                                    'ad_bar': self.ad_bar})
+
+    def post(self, request):
+        form = SearchForm(request.POST)
+        query = 'SELECT * FROM web_client_post'
+        where_flag = False
+
+        if form.is_valid():
+            for field in form.cleaned_data:
+                if form.cleaned_data.get(field) is not None:
+                    if where_flag is False:
+                        query += ' WHERE '
+                        where_flag = True
+                        query += str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
+                    else:
+                        query += ' AND ' + str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
+
+        if not request.user.is_authenticated:
+            contractors = None
+        else:
+            contractors = Contractor.objects.filter(status=True)
+
+        list_of_offers = Post.objects.raw(query)
+        results_found = len(list_of_offers)
+        search_form = SearchForm()
+
+        return render(request, self.template_name, {'offers': list_of_offers,
+                                                    'results_found': results_found,
                                                     'contractors': contractors,
                                                     'search_form': search_form,
                                                     'post_left_modal': self.post_left_modal,
@@ -98,13 +133,3 @@ def request_inspection(request):
         return JsonResponse({'request_created': request_created,
                              'contractor': Contractor.objects.get(pk=request.GET.get('contractor_id')).title})
 
-
-def search(request):
-    form = SearchForm(request.POST)
-    if form.is_valid():
-        print(form.cleaned_data)
-        for field in form.cleaned_data:
-            if form.cleaned_data.get(field) is not None:
-                print(field, form.cleaned_data.get(field))
-    # TODO: redirect to 'search' view with parameters
-    return redirect('homepage')
