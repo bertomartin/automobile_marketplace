@@ -10,18 +10,19 @@ from web_client.forms import ContractorSignUpForm, UpdateContractorForm, Custome
 class SignUp(CreateView):
     template_name = 'registration/signup.html'
 
-    def get_form_type(self, req):
+    # Passes request as parameter to re-use the same method for GET and POST requests.
+    def get_form_type(self, request=None):
         if self.kwargs['type'] == 'customer':
-            return CustomerSignUpForm(req)
+            return CustomerSignUpForm(request)
         elif self.kwargs['type'] == 'contractor':
-            return ContractorSignUpForm(req)
+            return ContractorSignUpForm(request)
         else:
             print('Wrong user type:' + self.kwargs['type'])
             raise Http404('Oops, broken URL...')
 
     def get(self, request, *args, **kwargs):
 
-        form = self.get_form_type(None)
+        form = self.get_form_type()
         return render(request, self.template_name, {'form': form, 'title': 'Create new account', 'registration': 'Step 1'})
 
     def post(self, request, *args, **kwargs):
