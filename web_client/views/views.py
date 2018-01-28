@@ -74,7 +74,7 @@ class Homepage(View):
 
 @method_decorator([login_required], name='dispatch')
 class CreatePost(View):
-    template_name = 'offer/offer_form.html'
+    template_name = 'post/edit_post.html'
     model = Post
     fields = ['make', 'model', 'engine', 'body_type']
 

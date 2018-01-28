@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     # Offers management
-    url(r'^offer/add/$', views.CreatePost.as_view(), name='new_offer'),
+    url(r'^post/new/$', views.CreatePost.as_view(), name='new_post'),
     url(r'^offers/$', views.UserPosts.as_view(), name='user_offers'),
     # url(r'^offer/(?P<offer_id>[0-9a-f-]+)$', views.OfferView.as_view(), name='offer'),
 
