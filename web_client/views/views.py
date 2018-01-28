@@ -24,7 +24,6 @@ class Homepage(View):
 
     def get(self, request):
         list_of_offers = Post.objects.all()
-        results_found = len(list_of_offers)
         search_form = SearchForm()
         if not request.user.is_authenticated:
             contractors = None
@@ -32,7 +31,6 @@ class Homepage(View):
             contractors = Contractor.objects.filter(status=True)
 
         return render(request, self.template_name, {'offers': list_of_offers,
-                                                    'results_found': results_found,
                                                     'contractors': contractors,
                                                     'search_form': search_form,
                                                     'post_left_modal': self.post_left_modal,
@@ -62,11 +60,9 @@ class Homepage(View):
             contractors = Contractor.objects.filter(status=True)
 
         list_of_offers = Post.objects.raw(query)
-        results_found = len(list_of_offers)
         search_form = SearchForm()
 
         return render(request, self.template_name, {'offers': list_of_offers,
-                                                    'results_found': results_found,
                                                     'contractors': contractors,
                                                     'search_form': search_form,
                                                     'post_left_modal': self.post_left_modal,
