@@ -39,8 +39,6 @@ class UpdateCustomerForm(forms.ModelForm):
 
 class ContractorSignUpForm(UserCreationForm):
 
-    # title = forms.CharField(max_length=20, required=True)
-
     def __init__(self, *args, **kwargs):
         super(ContractorSignUpForm, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -55,7 +53,6 @@ class ContractorSignUpForm(UserCreationForm):
         user.is_contractor = True
         user.save()
         contractor = Contractor.objects.create(user=user)
-        # contractor.title = (self.cleaned_data.get('title'))
         contractor.save()
         return user
 
@@ -76,9 +73,9 @@ class UpdateContractorForm(forms.ModelForm):
 
 class OfferForm(forms.ModelForm):
 
-    make = forms.ModelChoiceField(queryset=Manufacturer.objects.all())
-    engine_type = forms.ModelChoiceField(queryset=EngineType.objects.all())
-    engine_capacity = forms.ModelChoiceField(queryset=EngineCapacity.objects.all())
+    make = forms.ModelChoiceField(label='Manufacturer', queryset=Manufacturer.objects.all())
+    engine_type = forms.ModelChoiceField(label='Engine', queryset=EngineType.objects.all())
+    engine_capacity = forms.ModelChoiceField(label='Capacity', queryset=EngineCapacity.objects.all())
     body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
 
     def __init__(self, *args, **kwargs):
@@ -88,18 +85,12 @@ class OfferForm(forms.ModelForm):
         self.fields['description'].widget.attrs.update({'placeholder': 'Additional description'})
         self.fields['model'].queryset = Series.objects.none()
 
-        # data = kwargs.get('data')
-        print('Data none status')
-        print(self.data is not None)
-
         if 'make' in self.data:
             try:
                 manufacturer_id = int(self.data.get('make'))
                 self.fields['model'].queryset = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
             except ValueError:
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
-        # elif self.instance:
-        #     self.fields['model'].queryset = self.instance.make.model_set.order_by('series')
 
     class Meta:
         model = Post

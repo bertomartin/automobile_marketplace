@@ -16,14 +16,9 @@ urlpatterns = [
     url(r'^post/new/$', views.CreatePost.as_view(), name='new_post'),
     url(r'^user/posts/$', views.UserPosts.as_view(), name='user_posts'),
     url(r'^ajax/load-series/$', views.load_series, name='load_series'),
-    # url(r'^offer/(?P<offer_id>[0-9a-f-]+)$', views.OfferView.as_view(), name='offer'),
+    # url(r'^post/(?P<offer_id>[0-9a-f-]+)$', views.OfferView.as_view(), name='offer'),
 
     # Vehicle inspection
     url(r'^ajax/inspect/$', views.request_inspection, name='request_inspection'),
-
-    # url(r'^dashboard/$', views.Dashboard.as_view(), name='dashboard'),
-    # url(r'^search/$', views.Search.as_view(), name='search'),
-    # url(r'^profile/$', views.Profile.as_view(), name='profile'),
-    # url(r'^profile/$', views.Profile.as_view(), name='profile'),
 
 ]

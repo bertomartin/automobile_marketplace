@@ -81,7 +81,6 @@ class CreatePost(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        # print(request.POST.get('data'))
         form = OfferForm(request.POST)
 
         if form.is_valid():
@@ -130,8 +129,6 @@ def request_inspection(request):
 
 
 def load_series(request):
-    # print(request.GET.get('make'))
     manufacturer_id = request.GET.get('manufacturer_id')
     series = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
-    # return JsonResponse({'model': 'yep'})
     return render(request, 'post/series_list_options.html', {'series': series})
