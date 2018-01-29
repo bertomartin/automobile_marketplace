@@ -52,7 +52,7 @@ class Series(models.Model):
 
 
 class BodyType(models.Model):
-    body_type = models.CharField(max_length=20, blank=False)
+    body_type = models.CharField(max_length=20, unique=True, blank=False)
 
     def __str__(self):
         return self.body_type
