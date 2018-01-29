@@ -12,9 +12,10 @@ urlpatterns = [
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
-    # Offers management
+    # Post management
     url(r'^post/new/$', views.CreatePost.as_view(), name='new_post'),
-    url(r'^offers/$', views.UserPosts.as_view(), name='user_offers'),
+    url(r'^user/posts/$', views.UserPosts.as_view(), name='user_posts'),
+    url(r'^ajax/load-series/$', views.load_series, name='load_series'),
     # url(r'^offer/(?P<offer_id>[0-9a-f-]+)$', views.OfferView.as_view(), name='offer'),
 
     # Vehicle inspection

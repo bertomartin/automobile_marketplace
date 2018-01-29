@@ -75,16 +75,15 @@ class Homepage(View):
 @method_decorator([login_required], name='dispatch')
 class CreatePost(View):
     template_name = 'post/edit_post.html'
-    model = Post
-    fields = ['make', 'model', 'engine', 'body_type']
 
     def get(self, request):
-        form = OfferForm(initial={'contact_person': Customer.objects.filter(user_id=request.user).first().name})
-        maker_list = Manufacturer.objects.all()
-        return render(request, self.template_name, {'form': form, 'maker_list': maker_list})
+        form = OfferForm(initial={'contact_person': Customer.objects.get(user_id=request.user).name})
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        # print(request.POST.get('data'))
         form = OfferForm(request.POST)
+
         if form.is_valid():
             offer = form.save(commit=False)
             offer.owner = request.user
@@ -129,3 +128,10 @@ def request_inspection(request):
         return JsonResponse({'request_created': request_created,
                              'contractor': Contractor.objects.get(pk=request.GET.get('contractor_id')).title})
 
+
+def load_series(request):
+    # print(request.GET.get('make'))
+    manufacturer_id = request.GET.get('manufacturer_id')
+    series = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
+    # return JsonResponse({'model': 'yep'})
+    return render(request, 'post/series_list_options.html', {'series': series})
