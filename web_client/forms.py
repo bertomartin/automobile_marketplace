@@ -92,7 +92,7 @@ class OfferForm(forms.ModelForm):
         print('Data none status')
         print(self.data is not None)
 
-        if self.data.get('make', '') is not '':
+        if 'make' in self.data:
             try:
                 manufacturer_id = int(self.data.get('make'))
                 self.fields['model'].queryset = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
