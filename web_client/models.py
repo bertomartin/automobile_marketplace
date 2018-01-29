@@ -35,47 +35,20 @@ class Currency(models.Model):
     currency_abbr = models.CharField(max_length=5)
 
 
-class Post(models.Model):
-
-    YEAR_CHOICES = []
-    for r in range(1901, (datetime.datetime.now().year + 1)):
-        YEAR_CHOICES.append((r, r))
-
-    offer_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    make = models.CharField(max_length=20)
-    model = models.CharField(max_length=20)
-    engine_type = models.CharField(max_length=20)
-    engine_capacity = models.CharField(max_length=4)
-    body_type = models.CharField(max_length=20)
-    production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
-    description = models.TextField(default=None, blank=True)
-    price = models.PositiveIntegerField(blank=None)
-    created = models.DateField(auto_now_add=True)
-    contact_person = models.CharField(max_length=40, blank=False)
-    # currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=False)
-
-
-class InspectionRequest(models.Model):
-
-    status = models.BooleanField(default=True)
-    corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    responsible_contractor = models.ForeignKey(User, on_delete=models.CASCADE)
-    requesting_customer = models.ForeignKey(User, related_name="requesting_customer", on_delete=models.CASCADE)
-    inspection_result = models.TextField(blank=True)
-
-
-class Image(models.Model):
-    referencing_offer = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.FileField(upload_to='images')
-
-
 class Manufacturer(models.Model):
-    make = models.CharField(max_length=50)
+    make = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.make
+
+
+class Series(models.Model):
+
+    series = models.CharField(max_length=20, unique=True)
+    make_fk = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.series
 
 
 class BodyType(models.Model):
@@ -97,6 +70,48 @@ class EngineCapacity(models.Model):
 
     def __str__(self):
         return str(self.engine_capacity)
+
+
+class Post(models.Model):
+
+    YEAR_CHOICES = []
+    for r in range(1901, (datetime.datetime.now().year + 1)):
+        YEAR_CHOICES.append((r, r))
+
+    offer_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    make = models.ForeignKey(Manufacturer, on_delete=models.SET_NULL, null=True)
+    model = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True)
+    engine_type = models.ForeignKey(EngineType, on_delete=models.SET_NULL, null=True)
+    engine_capacity = models.ForeignKey(EngineCapacity, on_delete=models.SET_NULL, null=True)
+    body_type = models.ForeignKey(BodyType, on_delete=models.SET_NULL, null=True)
+    production_year = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
+    description = models.TextField(default=None, blank=True)
+    price = models.PositiveIntegerField(blank=None)
+    created = models.DateField(auto_now_add=True)
+    contact_person = models.CharField(max_length=40, blank=False)
+    # currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=False)
+
+    def __str__(self):
+        return str(self.offer_id)
+
+
+class InspectionRequest(models.Model):
+
+    status = models.BooleanField(default=True)
+    corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    responsible_contractor = models.ForeignKey(User, on_delete=models.CASCADE)
+    requesting_customer = models.ForeignKey(User, related_name="requesting_customer", on_delete=models.CASCADE)
+    inspection_result = models.TextField(blank=True)
+
+
+class Image(models.Model):
+    referencing_offer = models.ForeignKey(Post, on_delete=models.CASCADE)
+    image = models.FileField(upload_to='images')
+
+
+
 
 
 class Country(models.Model):
