@@ -23,7 +23,7 @@ class SignUp(CreateView):
     def get(self, request, *args, **kwargs):
 
         form = self.get_form_type()
-        return render(request, self.template_name, {'form': form, 'title': 'Create new account', 'registration': 'Step 1'})
+        return render(request, self.template_name, {'form': form, 'title': 'Create new account'})
 
     def post(self, request, *args, **kwargs):
         form = self.get_form_type(request.POST)
@@ -37,7 +37,7 @@ class SignUp(CreateView):
                     login(request, user)
                     return redirect('welcome')
 
-        return render(request, self.template_name, {'form': form, 'title': 'Create new account', 'registration': 'Step 1'})
+        return render(request, self.template_name, {'form': form, 'title': 'Create new account'})
 
 
 @method_decorator([login_required], name='dispatch')
