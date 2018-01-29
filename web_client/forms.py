@@ -86,6 +86,20 @@ class OfferForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
         self.fields['description'].widget.attrs.update({'placeholder': 'Additional description'})
+        self.fields['model'].queryset = Series.objects.none()
+
+        # data = kwargs.get('data')
+        print('Data none status')
+        print(self.data is not None)
+
+        if self.data.get('make', '') is not '':
+            try:
+                manufacturer_id = int(self.data.get('make'))
+                self.fields['model'].queryset = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
+            except ValueError:
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        # elif self.instance:
+        #     self.fields['model'].queryset = self.instance.make.model_set.order_by('series')
 
     class Meta:
         model = Post
