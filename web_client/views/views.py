@@ -29,7 +29,9 @@ class Homepage(View):
         search_form = SearchForm()
         if not request.user.is_authenticated:
             contractors = None
+            number_of_inspections = None
         else:
+            number_of_inspections = len(InspectionRequest.objects.filter(requesting_customer=request.user))
             contractors = Contractor.objects.filter(status=True)
 
         return render(request, self.template_name, {'offers': list_of_offers,
@@ -41,7 +43,8 @@ class Homepage(View):
                                                     'requests_modal': self.requests_modal,
                                                     'search_modal': self.search_modal,
                                                     'view_options': self.view_options,
-                                                    'ad_bar': self.ad_bar})
+                                                    'ad_bar': self.ad_bar,
+                                                    'number_of_inspections': number_of_inspections})
 
     def post(self, request):
         form = SearchForm(request.POST)
@@ -60,8 +63,10 @@ class Homepage(View):
                         query += ' AND ' + str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
 
         if not request.user.is_authenticated:
+            number_of_inspections = None
             contractors = None
         else:
+            number_of_inspections = len(InspectionRequest.objects.filter(requesting_customer=request.user))
             contractors = Contractor.objects.filter(status=True)
 
         list_of_offers = Post.objects.raw(query)
@@ -76,7 +81,8 @@ class Homepage(View):
                                                     'requests_modal': self.requests_modal,
                                                     'search_modal': self.search_modal,
                                                     'view_options': self.view_options,
-                                                    'ad_bar': self.ad_bar})
+                                                    'ad_bar': self.ad_bar,
+                                                    'number_of_inspections': number_of_inspections})
 
 
 @method_decorator([login_required], name='dispatch')

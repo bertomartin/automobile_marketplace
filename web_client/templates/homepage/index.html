@@ -53,7 +53,7 @@
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{% url 'user_posts' %}">Your posts</a></li>
                                         <li><a href="{% url 'new_post' %}">New post</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests <span class="badge">{{ number_of_inspections }}</span></a></li>
                                     {% endif %}
                                     <li role="separator" class="divider"></li>
                                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</a></li>
