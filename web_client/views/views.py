@@ -21,6 +21,8 @@ class Homepage(View):
     post_representation = 'homepage/post_details.html'
     post_left_modal = 'homepage/contact_information_modal.html'
     post_right_modal = 'homepage/workshop_list_modal.html'
+    requests_modal = 'homepage/requests_modal.html'
+    search_modal = 'homepage/search_modal.html'
 
     def get(self, request):
         list_of_offers = Post.objects.all()
@@ -36,6 +38,8 @@ class Homepage(View):
                                                     'post_left_modal': self.post_left_modal,
                                                     'post_right_modal': self.post_right_modal,
                                                     'post_representation': self.post_representation,
+                                                    'requests_modal': self.requests_modal,
+                                                    'search_modal': self.search_modal,
                                                     'view_options': self.view_options,
                                                     'ad_bar': self.ad_bar})
 
@@ -46,6 +50,7 @@ class Homepage(View):
 
         if form.is_valid():
             for field in form.cleaned_data:
+                print(field)
                 if form.cleaned_data.get(field) is not None:
                     if where_flag is False:
                         query += ' WHERE '
@@ -68,6 +73,8 @@ class Homepage(View):
                                                     'post_left_modal': self.post_left_modal,
                                                     'post_right_modal': self.post_right_modal,
                                                     'post_representation': self.post_representation,
+                                                    'requests_modal': self.requests_modal,
+                                                    'search_modal': self.search_modal,
                                                     'view_options': self.view_options,
                                                     'ad_bar': self.ad_bar})
 
@@ -86,7 +93,7 @@ class CreatePost(View):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('upload-images', post_id=str(post.pk))
+            return redirect('homepage')
 
         return render(request, self.template_name, {'form': form})
 
@@ -122,8 +129,13 @@ class UserPosts(View):
         pass
 
 
+def get_requests(request):
+    inspections = InspectionRequest.objects.filter(requesting_customer=request.user)
+    return render(request, 'homepage/customer_inspections.html', {'inspections': inspections})
+
+
 def request_inspection(request):
-        contractor = User.objects.get(pk=request.GET.get('contractor_id'))
+        contractor = Contractor.objects.get(user_id=request.GET.get('contractor_id'))
         post = Post.objects.get(offer_id=request.GET.get('post_id'))
 
         try:
