@@ -4,6 +4,7 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-0 col-sm-2 col-md-2 col-lg-3" style="margin-top: 50px"></div>
+
         <div class="jumbotron col-xs-12 col-sm-8 col-md-8 col-lg-6" style="margin-top: 50px">
             <form class="form-horizontal" method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
@@ -11,27 +12,32 @@
 
                 {% for field in form %}
                     <div class="form-group">
+
                         <label class="col-sm-4 control-label">{{ field.label_tag }}</label>
                         <div class="col-sm-8">
                             {{ field }}
+                            {% for error in field.errors %}
+                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                            {% endfor %}
                         </div>
-                        {{ field.errors }}
+
                     </div>
-
-
                 {% endfor %}
 
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div>
+                    <div class="form-group" style="text-align: right">
+                        <a class="btn btn-default" href="{% url 'homepage' %}" role="button">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Proceed to image upload...</button>
+                    </div>
             </form>
         </div>
+
         <div class="col-xs-0 col-sm-2 col-md-2 col-lg-3" style="margin-top: 50px"></div>
     </div>
 {% endblock %}
 
 {% block customscript %}
+
+    {#  Updates 'Series' dropdown depending on user selection in 'Manufacturers'  #}
     <script>
         $(document).ready(
             $('#id_make').change(function () {
