@@ -120,7 +120,6 @@ class UploadImages(View):
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
-        pass
 
 
 @method_decorator([login_required], name='dispatch')
@@ -135,9 +134,16 @@ class UserPosts(View):
         pass
 
 
-def get_requests(request):
-    inspections = InspectionRequest.objects.filter(requesting_customer=request.user)
-    return render(request, 'homepage/customer_inspections.html', {'inspections': inspections})
+@method_decorator([login_required], name='dispatch')
+class CustomerInspectionRequests(View):
+    template_name = 'homepage/customer_inspections.html'
+
+    def get(self, request):
+        inspections = InspectionRequest.objects.filter(requesting_customer=request.user)
+        return render(request, self.template_name, {'inspections': inspections})
+
+    def post(self, request):
+        pass
 
 
 def request_inspection(request):
