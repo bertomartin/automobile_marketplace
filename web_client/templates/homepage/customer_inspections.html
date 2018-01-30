@@ -1,17 +1,28 @@
 {% for request in inspections %}
 
-    <div class="list-group">
-        <a href="#" class="list-group-item workshop-item">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <h4 class="list-group-item-heading">Processed by: {{ request.responsible_contractor }}</h4>
             <p class="list-group-item-text"> {{ request.corresponding_post }}</p>
             {% if request.status %}
                 <p class="list-group-item-text">Status: resolved
                     <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></p>
+
+                <a class="list-group-item-text" data-toggle="collapse" href="#{{ request.id }}-collapse"
+                   aria-expanded="false" aria-controls="{{ request.id }}-collapse">
+                    Show details
+                </a>
+                <div class="collapse" id="{{ request.id }}-collapse">
+                    <div class="well">
+                        {{ request.details }}
+                    </div>
+                </div>
             {% else %}
                 <p class="list-group-item-text">Status: waiting for inspection
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span></p>
 
             {% endif %}
-        </a>
+        </div>
     </div>
+
 {% endfor %}
