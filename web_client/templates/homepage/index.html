@@ -47,7 +47,7 @@
                                     {% elif request.user.is_contractor %}
                                         <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="#">Inspection requests</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a></li>
                                     {% elif request.user.is_customer %}
                                         <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>
                                         <li role="separator" class="divider"></li>
@@ -85,12 +85,6 @@
         </div>
     </nav>
 
-    {#  Search modal  #}
-    {% include search_modal %}
-
-    {#  Requests modal  #}
-    {% include requests_modal %}
-
     {#  Main section  #}
     <div class="row" style="padding-top: 70px">
 
@@ -108,6 +102,12 @@
             {% include ad_bar %}
         </div>
     </div>
+
+    {#  Search modal  #}
+    {% include search_modal %}
+
+    {#  Requests modal  #}
+    {% include requests_modal %}
 
 {% endblock %}
 

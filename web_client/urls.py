@@ -21,6 +21,6 @@ urlpatterns = [
 
     # Vehicle inspection
     url(r'^ajax/inspect/$', views.request_inspection, name='request_inspection'),
-    url(r'^ajax/requests/$', views.CustomerInspectionRequests.as_view(), name='get_requests'),
+    url(r'^ajax/requests/$', views.InspectionRequests.as_view(), name='get_requests'),
 
 ]

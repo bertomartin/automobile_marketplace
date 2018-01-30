@@ -135,12 +135,19 @@ class UserPosts(View):
 
 
 @method_decorator([login_required], name='dispatch')
-class CustomerInspectionRequests(View):
-    template_name = 'homepage/customer_inspections.html'
+class InspectionRequests(View):
+    template_name = ''
+    inspections = {}
 
     def get(self, request):
-        inspections = InspectionRequest.objects.filter(requesting_customer=request.user)
-        return render(request, self.template_name, {'inspections': inspections})
+        if request.user.is_customer:
+            self.template_name = 'homepage/customer_inspections.html'
+            self.inspections = InspectionRequest.objects.filter(requesting_customer=request.user)
+        else:
+            self.template_name = 'homepage/contractor_inspections.html'
+            self.inspections = InspectionRequest.objects.filter(responsible_contractor=Contractor.objects.get(user_id=request.user))
+
+        return render(request, self.template_name, {'inspections': self.inspections})
 
     def post(self, request):
         pass
