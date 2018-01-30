@@ -81,15 +81,33 @@ class CreatePost(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = OfferForm(request.POST)
-
+        form = OfferForm(self.request.POST)
         if form.is_valid():
-            offer = form.save(commit=False)
-            offer.owner = request.user
-            offer.save()
-            return redirect('homepage')
+            post = form.save(commit=False)
+            post.owner = request.user
+            post.save()
+            return redirect('upload-images', post_id=str(post.pk))
 
         return render(request, self.template_name, {'form': form})
+
+
+class UploadImages(View):
+    template_name = 'post/image_upload.html'
+
+    def get(self, request, *args, **kwargs):
+        post_id = self.kwargs['post_id']
+        images = Image.objects.filter(post_id=post_id)
+        return render(self.request, self.template_name, {'photos': images})
+
+    def post(self, request):
+        form = ImageForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)
+        pass
 
 
 @method_decorator([login_required], name='dispatch')

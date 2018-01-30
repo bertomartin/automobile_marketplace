@@ -83,6 +83,7 @@ class OfferForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
         self.fields['description'].widget.attrs.update({'placeholder': 'Additional description'})
+        self.fields['make'].widget.attrs.update({'text': 'Manufacturer'})
         self.fields['model'].queryset = Series.objects.none()
 
         if 'make' in self.data:
@@ -95,6 +96,15 @@ class OfferForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['make', 'model', 'engine_type', 'engine_capacity', 'body_type', 'production_year', 'description', 'price', 'phone_number', 'contact_person']
+
+
+class ImageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ImageForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Image
+        fields = ('image',)
 
 
 class SearchForm(forms.Form):

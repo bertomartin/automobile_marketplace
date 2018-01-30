@@ -107,11 +107,9 @@ class InspectionRequest(models.Model):
 
 
 class Image(models.Model):
-    referencing_offer = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.FileField(upload_to='images')
-
-
-
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, blank=True)
+    image = models.FileField(upload_to='images/')
 
 
 class Country(models.Model):
