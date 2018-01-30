@@ -75,3 +75,13 @@ $(function () {
     });
 });
 
+
+$('#inspections-modal').on('show.bs.modal', function (e) {
+    $.ajax({
+        url: get_requests_list,
+        success: function (data) {
+            $('#request-modal-body').html(data);
+        }
+    })
+});
+

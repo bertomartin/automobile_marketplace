@@ -1,0 +1,48 @@
+{% load static %}
+
+<div class="modal fade bs-example-modal-lg" id="new-search-modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Customize your search</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="search-form">{% csrf_token %}
+                    <div class="row">
+                        {% for field in search_form %}
+
+                            {% if form.is_bound %}
+                                {% if field.errors %}
+                                    <div class="form-group has-erro col-md-2r">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                        <span id="{{ field.id_for_label }}" class="help-block">{{ field.errors }}</span>
+                                    </div>
+
+                                {% else %}
+                                    <div class="form-group has-success col-md-2">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="form-group col-md-2">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" form="search-form">Search...</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{% for request in inspections %}
+
+    <div class="list-group">
+        <a href="#" class="list-group-item workshop-item">
+            <h4 class="list-group-item-heading">Processed by: {{ request.responsible_contractor }}</h4>
+            <p class="list-group-item-text"> {{ request.corresponding_post }}</p>
+            {% if request.status %}
+                <p class="list-group-item-text">Status: resolved
+                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></p>
+            {% else %}
+                <p class="list-group-item-text">Status: waiting for inspectin
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span></p>
+
+            {% endif %}
+        </a>
+    </div>
+{% endfor %}
