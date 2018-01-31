@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="modal fade" id="{{ offer.offer_id }}_contact" tabindex="-1" role="dialog"
+<div class="modal fade" id="{{ post.offer_id }}_contact" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -10,8 +10,8 @@
                 <h4 class="modal-title" id="myModalLabel">Seller's contact information</h4>
             </div>
             <div class="modal-body">
-                <p>{{ offer.contact_person }}</p>
-                <p>{{ offer.phone_number }}</p>
+                <p>{{ post.contact_person }}</p>
+                <p>{{ post.phone_number }}</p>
 
             </div>
             <div class="modal-footer">

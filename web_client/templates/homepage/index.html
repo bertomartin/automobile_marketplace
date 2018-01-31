@@ -24,7 +24,7 @@
 
                     <form class="navbar-form navbar-left">
                         <button type="button" id="new-search" class="btn btn-default" data-toggle="modal"
-                                data-target="#new-search-modal" aria-label="Left Align">New search <span
+                                data-target="#new-search-modal" aria-label="Left Align">Detailed search <span
                                 class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
                     </form>
@@ -93,7 +93,7 @@
         </div>
 
         <div class="col-md-7">
-            {% for offer in offers %}
+            {% for post in offers %}
                 {% include post_representation %}
             {% endfor %}
         </div>

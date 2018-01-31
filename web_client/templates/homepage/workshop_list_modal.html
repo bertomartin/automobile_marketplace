@@ -1,8 +1,8 @@
 {% load static %}
 
-<div class="modal fade workshops" id="{{ offer.offer_id }}_inspection" tabindex="-1" role="dialog"
+<div class="modal fade workshops" id="{{ post.offer_id }}_inspection" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
-    <input type="hidden" id="post-id" name="variable" value="{{ offer.offer_id }}">
+    <input type="hidden" id="post-id" name="variable" value="{{ post.offer_id }}">
     <div class="modal-dialog" role="document">
         {% if request.user.is_authenticated %}
             <div class="modal-content">
