@@ -98,6 +98,12 @@ class Posts(View):
         pass
 
 
+class SharingOptions(View):
+    def get(self, request):
+        post_id = request.GET.get('post_id')
+        return render(request, 'homepage/sharing_options.html', {'post_id': Post.objects.get(pk=post_id).pk})
+
+
 @method_decorator([login_required], name='dispatch')
 class CreatePost(View):
     template_name = 'post/edit_post.html'
@@ -117,6 +123,7 @@ class CreatePost(View):
         return render(request, self.template_name, {'form': form})
 
 
+@method_decorator([login_required], name='dispatch')
 class UploadImages(View):
     template_name = 'post/image_upload.html'
 

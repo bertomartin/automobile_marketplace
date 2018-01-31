@@ -119,6 +119,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'web_client', 'static'),
     os.path.join(BASE_DIR, 'web_client', 'templates'),
+    os.path.join(BASE_DIR, 'media', 'images'),
                     )
 
 # Uploaded files (Images, Docs)

@@ -7,6 +7,7 @@ urlpatterns = [
     # Homepage
     url(r'^$', views.Homepage.as_view(), name='homepage'),
     url(r'^ajax/load-posts/$', views.Posts.as_view(), name='load_posts'),
+    url(r'^ajax/load-sharing-options/$', views.SharingOptions.as_view(), name='load_sharing_modal'),
 
     # Authentication/Authorisation
     url(r'^accounts/', include('django.contrib.auth.urls')),

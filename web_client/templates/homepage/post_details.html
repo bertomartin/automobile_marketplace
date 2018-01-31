@@ -41,7 +41,7 @@
                     <h1>{{ post.make }} {{ post.model }}
                         <small>{{ post.price }} £</small>
                         <button type="button" id="share-offer" class="btn btn-sm" data-toggle="modal"
-                                data-target="#{{ post.offer_id }}_share" aria-label="Left Align">
+                                data-target="#{{ post.offer_id }}-share-modal" aria-label="Left Align">
                             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                         </button>
                     </h1>
@@ -88,23 +88,9 @@
                 </div>
 
                 {# 'Share' modal #}
-                <div class="modal fade share" id="{{ post.offer_id }}_share" tabindex="-1" role="dialog"
+                <div class="modal fade share" id="{{ post.offer_id }}-share-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Copy URL below to share this offer with
-                                    others</h4>
-                            </div>
-                            <div class="modal-body">
-                                <input type="text" class="form-control" id="post-url"
-                                       value="http://www.automarket.com/post/{{ post.offer_id }}">
-                            </div>
-                        </div>
-                    </div>
+                    <div class="modal-dialog" id="{{ post.offer_id }}-body" role="document"></div>
                 </div>
             </div>
         </div>
@@ -117,3 +103,15 @@
 
 <!-- Request inspection modal -->
 {#{% include post_right_modal %}#}
+<script>
+    $('#{{ post.offer_id }}-share-modal').on('show.bs.modal', function (e) {
+
+        $.ajax({
+            url: '{% url 'load_sharing_modal' %}',
+            data: {'post_id': '{{ post.pk }}'},
+            success: function (data) {
+                $('#{{ post.offer_id }}-body').append(data);
+            }
+        });
+});
+</script>
