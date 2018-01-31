@@ -92,10 +92,10 @@
             {% include view_options %}
         </div>
 
-        <div class="col-md-7">
-            {% for post in offers %}
-                {% include post_representation %}
-            {% endfor %}
+        <div class="col-md-7" id="posts-panel">
+{#            {% for post in offers %}#}
+{#                {% include post_representation %}#}
+{#            {% endfor %}#}
         </div>
 
         <div class="col-md-3">
@@ -113,6 +113,21 @@
 
 {% block customscript %}
     <script>
+
+        $(document).ready(function (e) {
+            {# Temporary workaround while the number of posts is small #}
+            {% for post in offers %}
+                console.log('Requesting post: {{ post.pk }}');
+                $.ajax({
+                    url: '{% url 'load_posts' %}',
+                    data: {'post_id': '{{ post.pk }}'},
+                    success: function (data) {
+                        $('#posts-panel').append(data);
+                    }
+                });
+            {% endfor %}
+        });
+
         var request_inspection_ulr = '{% url 'request_inspection' %}';
         var get_requests_list = '{% url 'get_requests' %}'
     </script>

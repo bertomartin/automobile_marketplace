@@ -85,6 +85,19 @@ class Homepage(View):
                                                     'number_of_inspections': number_of_inspections})
 
 
+class Posts(View):
+    template_name = 'homepage/post_details.html'
+
+    def get(self, request):
+        post_id = request.GET.get('post_id')
+        post = Post.objects.get(pk=post_id)
+        images = Image.objects.filter(post=post)
+        return render(request, self.template_name, {'post': post, 'images': images})
+
+    def post(self, request):
+        pass
+
+
 @method_decorator([login_required], name='dispatch')
 class CreatePost(View):
     template_name = 'post/edit_post.html'

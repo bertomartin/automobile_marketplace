@@ -3,7 +3,10 @@ from django.contrib.auth import views as auth_views
 from web_client.views import views, contractor, customer, accounts
 
 urlpatterns = [
+
+    # Homepage
     url(r'^$', views.Homepage.as_view(), name='homepage'),
+    url(r'^ajax/load-posts/$', views.Posts.as_view(), name='load_posts'),
 
     # Authentication/Authorisation
     url(r'^accounts/', include('django.contrib.auth.urls')),
