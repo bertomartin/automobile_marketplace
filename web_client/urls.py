@@ -22,7 +22,7 @@ urlpatterns = [
     # Post management
     url(r'^post/new/$', views.CreatePost.as_view(), name='new_post'),
     url(r'^user/posts/$', views.UserPosts.as_view(), name='user_posts'),
-    url(r'^ajax/load-series/$', views.load_series, name='load_series'),
+    url(r'^ajax/load-series/$', views.SeriesPicklist.as_view(), name='load_series'),
     url(r'^post/(?P<post_id>[0-9a-f-]+)/upload-images/$', views.UploadImages.as_view(), name='upload-images'),
 
     # Vehicle inspection

@@ -89,28 +89,32 @@ class Posts(View):
         images = Image.objects.filter(post=post)
         return render(request, self.template_name, {'post': post, 'images': images})
 
-    def post(self, request):
-        pass
 
 
 class SharingOptions(View):
+    template_name = 'homepage/sharing_options.html'
+
     def get(self, request):
         post_id = request.GET.get('post_id')
-        return render(request, 'homepage/sharing_options.html', {'post_id': Post.objects.get(pk=post_id).pk})
+        return render(request, self.template_name, {'post_id': Post.objects.get(pk=post_id).pk})
 
 
 class ContactInformation(View):
+    template_name = 'homepage/contact_information_modal.html'
+
     def get(self, request):
         post_id = request.GET.get('post_id')
-        return render(request, 'homepage/contact_information_modal.html', {'post': Post.objects.get(pk=post_id)})
+        return render(request, self.template_name, {'post': Post.objects.get(pk=post_id)})
 
 
 class WorkshopsList(View):
+    template_name = 'homepage/workshops_modal.html'
+
     def get(self, request):
         post_id = request.GET.get('post_id')
         user = Customer.objects.get(pk=request.user)
         workshops = Contractor.objects.filter(status=True)
-        return render(request, 'homepage/workshops_modal.html', {'user': user, 'post': Post.objects.get(pk=post_id), 'contractors': workshops})
+        return render(request, self.template_name, {'user': user, 'post': Post.objects.get(pk=post_id), 'contractors': workshops})
 
 
 @method_decorator([login_required], name='dispatch')
@@ -130,6 +134,16 @@ class CreatePost(View):
             return redirect('homepage')
 
         return render(request, self.template_name, {'form': form})
+
+
+@method_decorator([login_required], name='dispatch')
+class SeriesPicklist(View):
+    template_name = 'post/series_list_options.html'
+
+    def get(self, request):
+        manufacturer_id = request.GET.get('manufacturer_id')
+        series = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
+        return render(request, self.template_name, {'series': series})
 
 
 @method_decorator([login_required], name='dispatch')
@@ -159,9 +173,6 @@ class UserPosts(View):
         posts = Post.objects.filter(owner=request.user)
         return render(request, self.template_name, {'offers': posts})
 
-    def post(self, request):
-        pass
-
 
 @method_decorator([login_required], name='dispatch')
 class InspectionRequests(View):
@@ -177,9 +188,6 @@ class InspectionRequests(View):
             self.inspections = InspectionRequest.objects.filter(responsible_contractor=Contractor.objects.get(user_id=request.user))
 
         return render(request, self.template_name, {'inspections': self.inspections})
-
-    def post(self, request):
-        pass
 
 
 def request_inspection(request):
@@ -206,7 +214,3 @@ def request_inspection(request):
         return JsonResponse({'status': status})
 
 
-def load_series(request):
-    manufacturer_id = request.GET.get('manufacturer_id')
-    series = Series.objects.filter(make_fk=manufacturer_id).order_by('series')
-    return render(request, 'post/series_list_options.html', {'series': series})
