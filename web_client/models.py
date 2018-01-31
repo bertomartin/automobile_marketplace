@@ -108,7 +108,7 @@ class InspectionRequest(models.Model):
     status = models.BooleanField(default=False)
     corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     responsible_contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE)
-    requesting_customer = models.ForeignKey(User, related_name="requesting_customer", on_delete=models.CASCADE)
+    requesting_customer = models.ForeignKey(Customer, related_name="requesting_customer", on_delete=models.CASCADE)
     details = models.TextField(blank=True)
     date_created = models.DateField(auto_now_add=True)
     date_resolved = models.DateField(null=True)
