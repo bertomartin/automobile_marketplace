@@ -123,8 +123,15 @@
             {% endfor %}
         });
 
-        var request_inspection_ulr = '{% url 'request_inspection' %}';
-        var get_requests_list = '{% url 'get_requests' %}'
+        $('#inspections-modal').on('show.bs.modal', function (e) {
+            $.ajax({
+                url: '{% url 'get_requests' %}',
+                success: function (data) {
+                    $('#request-modal-body').html(data);
+                }
+            })
+        });
+
     </script>
     <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}
