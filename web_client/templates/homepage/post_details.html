@@ -41,7 +41,7 @@
                     <h1>{{ post.make }} {{ post.model }}
                         <small>{{ post.price }} £</small>
                         <button type="button" id="share-offer" class="btn btn-sm" data-toggle="modal"
-                                data-target="#{{ post.offer_id }}-share-modal" aria-label="Left Align">
+                                data-target="#{{ post.pk }}-share-modal" aria-label="Left Align">
                             <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                         </button>
                     </h1>
@@ -52,7 +52,7 @@
 
 
                 <div class="col-sm-12 col-md-12">
-                    <div class="collapse" id="{{ post.offer_id }}-collapse">
+                    <div class="collapse" id="{{ post.pk }}-collapse">
                         <div class="well">
                             {{ post.description }}
                         </div>
@@ -64,8 +64,8 @@
                         <button type="button" class="btn btn-default"
                                 style="background-color: #00acd8; color: white; border: 1px solid #00acd8;"
                                 data-toggle="collapse"
-                                data-target="#{{ post.offer_id }}-collapse" aria-expanded="false"
-                                aria-controls="{{ post.offer_id }}-collapse">
+                                data-target="#{{ post.pk }}-collapse" aria-expanded="false"
+                                aria-controls="{{ post.pk }}-collapse">
                             More details
                         </button>
                     </div>
@@ -73,7 +73,7 @@
                         <button type="button" class="btn btn-primary"
                                 style="background-color: #ef476f; color: white; border: 1px solid #ef476f;"
                                 data-toggle="modal"
-                                data-target="#{{ post.offer_id }}-contact-modal">
+                                data-target="#{{ post.pk }}-contact-modal">
                             Contact seller
                         </button>
                     </div>
@@ -81,21 +81,28 @@
                         <button type="button" class="btn btn-info"
                                 style="background-color: #06d6a0; color: white; border: 1px solid #06d6a0;"
                                 data-toggle="modal"
-                                data-target="#{{ post.offer_id }}_inspection">Request vehicle inspection
+                                data-target="#{{ post.pk }}-workshop-modal">Request vehicle inspection
                         </button>
                     </div>
                 </div>
 
                 {# 'Share' modal #}
-                <div class="modal fade share" id="{{ post.offer_id }}-share-modal" tabindex="-1" role="dialog"
+                <div class="modal fade" id="{{ post.pk }}-share-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" id="{{ post.offer_id }}-share-body" role="document"></div>
+                    <div class="modal-dialog" id="{{ post.pk }}-share-body" role="document"></div>
                 </div>
 
                 {# 'Contact seller' modal #}
-                <div class="modal fade" id="{{ post.offer_id }}-contact-modal" tabindex="-1" role="dialog"
+                <div class="modal fade" id="{{ post.pk }}-contact-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" id="{{ post.offer_id }}-contact-body" role="document"></div>
+                    <div class="modal-dialog" id="{{ post.pk }}-contact-body" role="document"></div>
+                </div>
+
+
+                <div class="modal fade" id="{{ post.pk }}-workshop-modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" id="{{ post.pk }}-workshop-body" role="document">
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,23 +111,34 @@
 
 
 <script>
-    $('#{{ post.offer_id }}-share-modal').on('show.bs.modal', function (e) {
+    $('#{{ post.pk }}-share-modal').on('show.bs.modal', function (e) {
         $.ajax({
             url: '{% url 'load_sharing_modal' %}',
             data: {'post_id': '{{ post.pk }}'},
             success: function (data) {
-                $('#{{ post.offer_id }}-share-body').html(data);
+                $('#{{ post.pk }}-share-body').html(data);
             }
         });
     });
 
-    $('#{{ post.offer_id }}-contact-modal').on('show.bs.modal', function (e) {
+    $('#{{ post.pk }}-contact-modal').on('show.bs.modal', function (e) {
         $.ajax({
             url: '{% url 'load_contact_modal' %}',
             data: {'post_id': '{{ post.pk }}'},
             success: function (data) {
-                $('#{{ post.offer_id }}-contact-body').html(data);
+                $('#{{ post.pk }}-contact-body').html(data);
             }
         });
     });
+
+    $('#{{ post.pk }}-workshop-modal').on('show.bs.modal', function (e) {
+        $.ajax({
+            url: '{% url 'load_workshops_modal' %}',
+            data: {'post_id': '{{ post.pk }}'},
+            success: function (data) {
+                $('#{{ post.offer_id }}-workshop-body').html(data);
+            }
+        });
+    });
+
 </script>

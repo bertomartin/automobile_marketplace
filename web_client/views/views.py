@@ -110,6 +110,14 @@ class ContactInformation(View):
         return render(request, 'homepage/contact_information_modal.html', {'post': Post.objects.get(pk=post_id)})
 
 
+class WorkshopsList(View):
+    def get(self, request):
+        post_id = request.GET.get('post_id')
+        user = Customer.objects.get(pk=request.user)
+        workshops = Contractor.objects.filter(status=True)
+        return render(request, 'homepage/workshops_modal.html', {'user': user, 'post': Post.objects.get(pk=post_id), 'contractors': workshops})
+
+
 @method_decorator([login_required], name='dispatch')
 class CreatePost(View):
     template_name = 'post/edit_post.html'

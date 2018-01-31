@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^ajax/load-posts/$', views.Posts.as_view(), name='load_posts'),
     url(r'^ajax/load-sharing-options/$', views.SharingOptions.as_view(), name='load_sharing_modal'),
     url(r'^ajax/load-contact-information/$', views.ContactInformation.as_view(), name='load_contact_modal'),
+    url(r'^ajax/load-workshops/$', views.WorkshopsList.as_view(), name='load_workshops_modal'),
 
     # Authentication/Authorisation
     url(r'^accounts/', include('django.contrib.auth.urls')),
@@ -25,7 +26,7 @@ urlpatterns = [
     url(r'^post/(?P<post_id>[0-9a-f-]+)/upload-images/$', views.UploadImages.as_view(), name='upload-images'),
 
     # Vehicle inspection
-    url(r'^ajax/inspect/$', views.request_inspection, name='request_inspection'),
+    url(r'^ajax/request_inspection/$', views.request_inspection, name='request_inspection'),
     url(r'^ajax/requests/$', views.InspectionRequests.as_view(), name='get_requests'),
 
 ]
