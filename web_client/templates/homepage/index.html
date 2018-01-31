@@ -92,11 +92,7 @@
             {% include view_options %}
         </div>
 
-        <div class="col-md-7" id="posts-panel">
-{#            {% for post in offers %}#}
-{#                {% include post_representation %}#}
-{#            {% endfor %}#}
-        </div>
+        <div class="col-md-7" id="posts-panel"></div>
 
         <div class="col-md-3">
             {% include ad_bar %}
@@ -117,7 +113,6 @@
         $(document).ready(function (e) {
             {# Temporary workaround while the number of posts is small #}
             {% for post in offers %}
-                console.log('Requesting post: {{ post.pk }}');
                 $.ajax({
                     url: '{% url 'load_posts' %}',
                     data: {'post_id': '{{ post.pk }}'},

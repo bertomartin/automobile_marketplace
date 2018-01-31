@@ -84,7 +84,6 @@
                                 data-target="#{{ post.offer_id }}_inspection">Request vehicle inspection
                         </button>
                     </div>
-                    {#                    <button type="button" class="btn btn-default">2</button>#}
                 </div>
 
                 {# 'Share' modal #}
@@ -103,12 +102,7 @@
     </div>
 </div>
 
-{# TODO: render modal dynamically#}
-<!-- Seller's contact information modal -->
-{#{% include post_left_modal %}#}
 
-<!-- Request inspection modal -->
-{#{% include post_right_modal %}#}
 <script>
     $('#{{ post.offer_id }}-share-modal').on('show.bs.modal', function (e) {
         $.ajax({
