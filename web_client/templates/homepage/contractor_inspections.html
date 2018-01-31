@@ -1,0 +1,11 @@
+{% for request in inspections %}
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4 class="list-group-item-heading">Processed by: {{ request.responsible_contractor }}</h4>
+            <p class="list-group-item-text"> {{ request.corresponding_post }}</p>
+            {#      TODO: continue...      #}
+        </div>
+    </div>
+
+{% endfor %}
