@@ -104,6 +104,12 @@ class SharingOptions(View):
         return render(request, 'homepage/sharing_options.html', {'post_id': Post.objects.get(pk=post_id).pk})
 
 
+class ContactInformation(View):
+    def get(self, request):
+        post_id = request.GET.get('post_id')
+        return render(request, 'homepage/contact_information_modal.html', {'post': Post.objects.get(pk=post_id)})
+
+
 @method_decorator([login_required], name='dispatch')
 class CreatePost(View):
     template_name = 'post/edit_post.html'

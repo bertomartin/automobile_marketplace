@@ -73,7 +73,7 @@
                         <button type="button" class="btn btn-primary"
                                 style="background-color: #ef476f; color: white; border: 1px solid #ef476f;"
                                 data-toggle="modal"
-                                data-target="#{{ post.offer_id }}_contact">
+                                data-target="#{{ post.offer_id }}-contact-modal">
                             Contact seller
                         </button>
                     </div>
@@ -90,7 +90,13 @@
                 {# 'Share' modal #}
                 <div class="modal fade share" id="{{ post.offer_id }}-share-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" id="{{ post.offer_id }}-body" role="document"></div>
+                    <div class="modal-dialog" id="{{ post.offer_id }}-share-body" role="document"></div>
+                </div>
+
+                {# 'Contact seller' modal #}
+                <div class="modal fade" id="{{ post.offer_id }}-contact-modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" id="{{ post.offer_id }}-contact-body" role="document"></div>
                 </div>
             </div>
         </div>
@@ -105,13 +111,22 @@
 {#{% include post_right_modal %}#}
 <script>
     $('#{{ post.offer_id }}-share-modal').on('show.bs.modal', function (e) {
-
         $.ajax({
             url: '{% url 'load_sharing_modal' %}',
             data: {'post_id': '{{ post.pk }}'},
             success: function (data) {
-                $('#{{ post.offer_id }}-body').append(data);
+                $('#{{ post.offer_id }}-share-body').html(data);
             }
         });
-});
+    });
+
+    $('#{{ post.offer_id }}-contact-modal').on('show.bs.modal', function (e) {
+        $.ajax({
+            url: '{% url 'load_contact_modal' %}',
+            data: {'post_id': '{{ post.pk }}'},
+            success: function (data) {
+                $('#{{ post.offer_id }}-contact-body').html(data);
+            }
+        });
+    });
 </script>
