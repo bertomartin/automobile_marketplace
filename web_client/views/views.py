@@ -29,9 +29,8 @@ class Homepage(View):
         search_form = SearchForm()
         if not request.user.is_authenticated:
             contractors = None
-            number_of_inspections = None
+
         else:
-            number_of_inspections = len(InspectionRequest.objects.filter(requesting_customer=request.user))
             contractors = Contractor.objects.filter(status=True)
 
         return render(request, self.template_name, {'offers': list_of_offers,
@@ -43,8 +42,7 @@ class Homepage(View):
                                                     'requests_modal': self.requests_modal,
                                                     'search_modal': self.search_modal,
                                                     'view_options': self.view_options,
-                                                    'ad_bar': self.ad_bar,
-                                                    'number_of_inspections': number_of_inspections})
+                                                    'ad_bar': self.ad_bar})
 
     def post(self, request):
         form = SearchForm(request.POST)
@@ -63,10 +61,8 @@ class Homepage(View):
                         query += ' AND ' + str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
 
         if not request.user.is_authenticated:
-            number_of_inspections = None
             contractors = None
         else:
-            number_of_inspections = len(InspectionRequest.objects.filter(requesting_customer=request.user))
             contractors = Contractor.objects.filter(status=True)
 
         list_of_offers = Post.objects.raw(query)
@@ -81,8 +77,7 @@ class Homepage(View):
                                                     'requests_modal': self.requests_modal,
                                                     'search_modal': self.search_modal,
                                                     'view_options': self.view_options,
-                                                    'ad_bar': self.ad_bar,
-                                                    'number_of_inspections': number_of_inspections})
+                                                    'ad_bar': self.ad_bar})
 
 
 class Posts(View):
@@ -188,27 +183,27 @@ class InspectionRequests(View):
 
 
 def request_inspection(request):
+
         contractor = Contractor.objects.get(user_id=request.GET.get('contractor_id'))
         post = Post.objects.get(offer_id=request.GET.get('post_id'))
+        customer = Customer.objects.get(user=request.user)
 
         try:
-            if len(InspectionRequest.objects.filter(corresponding_post=post,
-                                                    responsible_contractor=contractor,
-                                                    requesting_customer=request.user)) > 0:
-                # print('This request already exists')
-                request_created = False
+            if InspectionRequest.objects.filter(corresponding_post=post,
+                                                responsible_contractor=contractor,
+                                                requesting_customer=customer).count() > 0:
+                status = 'This request request already exists for this user.'
             else:
                 inspection = InspectionRequest(corresponding_post=post,
                                                responsible_contractor=contractor,
-                                               requesting_customer=request.user)
+                                               requesting_customer=customer)
                 inspection.save()
-                request_created = True
+                status = 'Your request to {} was successfully created.'.format(contractor.title)
         except Exception as e:
-            request_created = False
+            status = 'Something went wrong during this request.'
             print('Couldn\'t create inspection request: \n', e)
 
-        return JsonResponse({'request_created': request_created,
-                             'contractor': Contractor.objects.get(pk=request.GET.get('contractor_id')).title})
+        return JsonResponse({'status': status})
 
 
 def load_series(request):
