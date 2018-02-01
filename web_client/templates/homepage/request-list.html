@@ -1,5 +1,5 @@
 <div class="list-group" id="request-list">
-    <a href="#" class="list-group-item request-item">
+    <a href="#" class="list-group-item" id="request-item-{{ record.pk }}">
         <h4 class="list-group-item-heading">{{ record.date_created }} Id: {{ record.pk }}</h4>
         <p class="list-group-item-text"> {{ record.corresponding_post }}</p>
         {% if record.status %}
@@ -13,9 +13,21 @@
 
 <script>
     var selected_request = null;
-    $('.request-item').click(function () {
+
+    function load_tab_content(target_element, url, data) {
+        $.ajax({
+            url: url,
+            data: data,
+            success: function (data) {
+                $(target_element).html(data);
+            }
+        });
+    }
+
+    $('#request-item-{{ record.pk }}').click(function () {
         $(selected_request).removeClass('active');
         selected_request = this;
         $(this).addClass('active');
-     })
+        load_tab_content('#edit-request-details', '{% url 'load_tab_content' %}', {'request_id': '{{ record.pk }}'});
+    })
 </script>
