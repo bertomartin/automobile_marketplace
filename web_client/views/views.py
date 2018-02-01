@@ -16,34 +16,17 @@ class WelcomePage(View):
 
 class Homepage(View):
     template_name = 'homepage/index.html'
-    view_options = 'homepage/view_options.html'
-    ad_bar = 'homepage/ad_bar.html'
-    post_representation = 'homepage/post_details.html'
-    post_left_modal = 'homepage/contact_information_modal.html'
-    post_right_modal = 'homepage/workshop_list_modal.html'
     requests_modal = 'homepage/requests_modal.html'
     search_modal = 'homepage/search_modal.html'
 
     def get(self, request):
-        list_of_offers = Post.objects.all()
         search_form = SearchForm()
-        if not request.user.is_authenticated:
-            contractors = None
-
-        else:
-            contractors = Contractor.objects.filter(status=True)
-
-        return render(request, self.template_name, {'offers': list_of_offers,
-                                                    'contractors': contractors,
-                                                    'search_form': search_form,
-                                                    'post_left_modal': self.post_left_modal,
-                                                    'post_right_modal': self.post_right_modal,
-                                                    'post_representation': self.post_representation,
+        return render(request, self.template_name, {'search_form': search_form,
                                                     'requests_modal': self.requests_modal,
-                                                    'search_modal': self.search_modal,
-                                                    'view_options': self.view_options,
-                                                    'ad_bar': self.ad_bar})
+                                                    'search_modal': self.search_modal
+                                                    })
 
+    # TODO move to separate View
     def post(self, request):
         form = SearchForm(request.POST)
         query = 'SELECT * FROM web_client_post'
@@ -60,22 +43,25 @@ class Homepage(View):
                     else:
                         query += ' AND ' + str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
 
-        if not request.user.is_authenticated:
-            contractors = None
-        else:
-            contractors = Contractor.objects.filter(status=True)
 
-        list_of_offers = Post.objects.raw(query)
+        list_of_posts = Post.objects.raw(query)
         search_form = SearchForm()
 
-        return render(request, self.template_name, {'offers': list_of_offers,
-                                                    'contractors': contractors,
-                                                    'search_form': search_form,
-                                                    'post_left_modal': self.post_left_modal,
-                                                    'post_right_modal': self.post_right_modal,
-                                                    'post_representation': self.post_representation,
+        return render(request, self.template_name, {'search_form': search_form,
                                                     'requests_modal': self.requests_modal,
-                                                    'search_modal': self.search_modal,
+                                                    'search_modal': self.search_modal
+                                                    })
+
+
+class MainContainer(View):
+    template_name = 'homepage/customer_main_container.html'
+    view_options = 'homepage/view_options.html'
+    ad_bar = 'homepage/ad_bar.html'
+    search_modal = 'homepage/search_modal.html'
+
+    def get(self, request):
+        posts = Post.objects.all().order_by('-created')
+        return render(request, self.template_name, {'posts': posts,
                                                     'view_options': self.view_options,
                                                     'ad_bar': self.ad_bar})
 
@@ -88,7 +74,6 @@ class Posts(View):
         post = Post.objects.get(pk=post_id)
         images = Image.objects.filter(post=post)
         return render(request, self.template_name, {'post': post, 'images': images})
-
 
 
 class SharingOptions(View):

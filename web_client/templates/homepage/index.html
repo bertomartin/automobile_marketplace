@@ -85,19 +85,8 @@
         </div>
     </nav>
 
-    {#  Main section  #}
-    <div class="row" style="padding-top: 70px">
-
-        <div class="col-md-2">
-            {% include view_options %}
-        </div>
-
-        <div class="col-md-7" id="posts-panel"></div>
-
-        <div class="col-md-3">
-            {% include ad_bar %}
-        </div>
-    </div>
+    {#  Main container  #}
+    <div class="row" id="main-container" style="padding-top: 70px"></div>
 
     {#  Search modal  #}
     {% include search_modal %}
@@ -109,18 +98,13 @@
 
 {% block customscript %}
     <script>
-
         $(document).ready(function (e) {
-            {# Temporary workaround while the number of posts is small #}
-            {% for post in offers %}
-                $.ajax({
-                    url: '{% url 'load_posts' %}',
-                    data: {'post_id': '{{ post.pk }}'},
-                    success: function (data) {
-                        $('#posts-panel').append(data);
-                    }
-                });
-            {% endfor %}
+            $.ajax({
+                url: '{% url 'load_main_container' %}',
+                success: function (data) {
+                    $('#main-container').html(data);
+                }
+            })
         });
 
         $('#inspections-modal').on('show.bs.modal', function (e) {
@@ -131,7 +115,6 @@
                 }
             })
         });
-
     </script>
     <script src="{% static 'homepage/homepage.js' %}"></script>
 {% endblock %}

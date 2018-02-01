@@ -1,0 +1,26 @@
+<div class="col-md-2">
+     {% include view_options %}
+</div>
+
+<div class="col-md-7" id="posts-panel"></div>
+
+
+<div class="col-md-3">
+     {% include ad_bar %}
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        {# Temporary workaround while the number of posts is small #}
+        {% for post in posts %}
+            $.ajax({
+                url: '{% url 'load_posts' %}',
+                data: {'post_id': '{{ post.pk }}'},
+                success: function (data) {
+                    $('#posts-panel').append(data);
+                }
+            });
+        {% endfor %}
+        {#  TODO multiple pages of posts  #}
+    });
+</script>
