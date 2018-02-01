@@ -24,7 +24,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-default" id="close-workshop-modal" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="submit-request">Select and request inspection</button>
+            <button type="submit" class="btn btn-primary" id="submit-request-{{ post.pk }}">Select and request inspection</button>
         </div>
         </div>
     {% else %}
@@ -58,9 +58,9 @@
     });
 
 
-    $('#submit-request').click(function () {
+    $('#submit-request-{{ post.pk }}').click(function () {
         if (selected_workshop == null) {
-            console.log('nothing selected!')
+            {#console.log('nothing selected!')#}
         } else {
             $.ajax({
                 url: '{% url 'request_inspection' %}',
