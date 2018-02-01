@@ -13,6 +13,9 @@ urlpatterns = [
     url(r'^ajax/load-contact-information/$', views.ContactInformation.as_view(), name='load_contact_modal'),
     url(r'^ajax/load-workshops/$', views.WorkshopsList.as_view(), name='load_workshops_modal'),
 
+    # Workshop's homepage
+    url(r'^ajax/load-request-list/$', contractor.RequestList.as_view(), name='load_request_list'),
+
     # Authentication/Authorisation
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/signup/(?P<type>[\w\-]+)/$', accounts.SignUp.as_view(), name='signup'),

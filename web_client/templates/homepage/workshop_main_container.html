@@ -1,0 +1,24 @@
+<div class="col-md-4" id="request-list-container"></div>
+
+<div class="col-md-8" id="edit-request-details" style="height: 85vh;">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Technical Condition</a></li>
+        <li role="presentation"><a href="#">Visual Condition</a></li>
+        <li role="presentation"><a href="#">Comments</a></li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        {% for request_record in requestos %}
+            console.log('{{ request_record.pk }}');
+            $.ajax({
+                url: '{% url 'load_request_list' %}',
+                data: {'request_id': '{{ request_record.pk }}'},
+                success: function (data) {
+                    $('#request-list-container').append(data);
+                }
+            });
+        {% endfor %}
+    });
+</script>

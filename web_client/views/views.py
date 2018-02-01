@@ -59,8 +59,10 @@ class MainContainer(View):
 
     def get(self, request):
         if request.user.is_authenticated and request.user.is_contractor:
-                self.parameters = {}
-                self.template_name = 'homepage/workshop_main_container.html'
+            self.template_name = 'homepage/workshop_main_container.html'
+            inspections = InspectionRequest.objects.filter(
+                responsible_contractor=Contractor.objects.get(user_id=request.user)).order_by('status')
+            self.parameters = {'requestos': inspections}
 
         elif request.user.is_authenticated and request.user.is_superuser:
                 self.parameters = {}

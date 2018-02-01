@@ -1,0 +1,21 @@
+<div class="list-group" id="request-list">
+    <a href="#" class="list-group-item request-item">
+        <h4 class="list-group-item-heading">{{ record.date_created }} Id: {{ record.pk }}</h4>
+        <p class="list-group-item-text"> {{ record.corresponding_post }}</p>
+        {% if record.status %}
+            <p class="list-group-item-text">Status: resolved</p>
+        {% else %}
+            <p class="list-group-item-text">Status: waiting for inspection</p>
+        {% endif %}
+    </a>
+</div>
+
+
+<script>
+    var selected_request = null;
+    $('.request-item').click(function () {
+        $(selected_request).removeClass('active');
+        selected_request = this;
+        $(this).addClass('active');
+     })
+</script>
