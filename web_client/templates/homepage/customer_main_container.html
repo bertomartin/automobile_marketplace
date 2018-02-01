@@ -1,12 +1,12 @@
 <div class="col-md-2">
-     {% include view_options %}
+    {% include view_options %}
 </div>
 
 <div class="col-md-7" id="posts-panel"></div>
 
 
 <div class="col-md-3">
-     {% include ad_bar %}
+    {% include ad_bar %}
 </div>
 
 <script>
@@ -22,5 +22,21 @@
             });
         {% endfor %}
         {#  TODO multiple pages of posts  #}
+    });
+
+    {# Sticks ad bar and view options to top of the page #}
+    $(function () {
+        var
+            $win = $(window),
+            $filter = $('.scroll-navbar'),
+            $filterSpacer = $('<div />', {
+                "class": "filter-drop-spacer",
+                "height": 0
+            });
+        $win.scroll(function () {
+            $filter.before($filterSpacer);
+            $filter.addClass("fix");
+
+        });
     });
 </script>
