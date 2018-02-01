@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^$', views.Homepage.as_view(), name='homepage'),
     url(r'^ajax/load-main-container/$', views.MainContainer.as_view(), name='load_main_container'),
     url(r'^ajax/load-posts/$', views.Posts.as_view(), name='load_posts'),
+    url(r'^ajax/load-post-details/$', views.PostDetails.as_view(), name='load_post_details'),
     url(r'^ajax/load-sharing-options/$', views.SharingOptions.as_view(), name='load_sharing_modal'),
     url(r'^ajax/load-contact-information/$', views.ContactInformation.as_view(), name='load_contact_modal'),
     url(r'^ajax/load-workshops/$', views.WorkshopsList.as_view(), name='load_workshops_modal'),

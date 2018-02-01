@@ -50,22 +50,12 @@
                 <p class="col-sm-12 col-md-4">Body: {{ post.body_type }}</p>
                 <p class="col-sm-12 col-md-4">Gearbox: Automatic</p>
 
-
-                <div class="col-sm-12 col-md-12">
-                    <div class="collapse" id="{{ post.pk }}-collapse">
-                        <div class="well">
-                            {{ post.description }}
-                        </div>
-                    </div>
-                </div>
-
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class=" btn-group" role="group">
                         <button type="button" class="btn btn-default"
                                 style="background-color: #00acd8; color: white; border: 1px solid #00acd8;"
-                                data-toggle="collapse"
-                                data-target="#{{ post.pk }}-collapse" aria-expanded="false"
-                                aria-controls="{{ post.pk }}-collapse">
+                                data-toggle="modal"
+                                data-target="#{{ post.pk }}-details-modal">
                             More details
                         </button>
                     </div>
@@ -92,13 +82,19 @@
                     <div class="modal-dialog" id="{{ post.pk }}-share-body" role="document"></div>
                 </div>
 
+                {# 'More details' modal #}
+                <div class="modal fade" id="{{ post.pk }}-details-modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-lg" id="{{ post.pk }}-details-body" role="document"></div>
+                </div>
+
                 {# 'Contact seller' modal #}
                 <div class="modal fade" id="{{ post.pk }}-contact-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
                     <div class="modal-dialog" id="{{ post.pk }}-contact-body" role="document"></div>
                 </div>
 
-
+                {# 'Request inspection' modal #}
                 <div class="modal fade" id="{{ post.pk }}-workshop-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
                     <div class="modal-dialog" id="{{ post.pk }}-workshop-body" role="document">
@@ -111,34 +107,31 @@
 
 
 <script>
-    $('#{{ post.pk }}-share-modal').on('show.bs.modal', function (e) {
+
+    function load_modal(target_element, url, data) {
         $.ajax({
-            url: '{% url 'load_sharing_modal' %}',
-            data: {'post_id': '{{ post.pk }}'},
+            url: url,
+            data: data,
             success: function (data) {
-                $('#{{ post.pk }}-share-body').html(data);
+                $(target_element).html(data);
             }
         });
+    }
+
+    $('#{{ post.pk }}-share-modal').on('show.bs.modal', function (e) {
+        load_modal('#' + this.firstElementChild.id, '{% url 'load_sharing_modal' %}', {'post_id': '{{ post.pk }}'});
+    });
+
+    $('#{{ post.pk }}-details-modal').on('show.bs.modal', function (e) {
+        load_modal('#' + this.firstElementChild.id, '{% url 'load_post_details' %}', {'post_id': '{{ post.pk }}'});
     });
 
     $('#{{ post.pk }}-contact-modal').on('show.bs.modal', function (e) {
-        $.ajax({
-            url: '{% url 'load_contact_modal' %}',
-            data: {'post_id': '{{ post.pk }}'},
-            success: function (data) {
-                $('#{{ post.pk }}-contact-body').html(data);
-            }
-        });
+        load_modal('#' + this.firstElementChild.id, '{% url 'load_contact_modal' %}', {'post_id': '{{ post.pk }}'});
     });
 
     $('#{{ post.pk }}-workshop-modal').on('show.bs.modal', function (e) {
-        $.ajax({
-            url: '{% url 'load_workshops_modal' %}',
-            data: {'post_id': '{{ post.pk }}'},
-            success: function (data) {
-                $('#{{ post.offer_id }}-workshop-body').html(data);
-            }
-        });
+        load_modal('#' + this.firstElementChild.id, '{% url 'load_workshops_modal' %}', {'post_id': '{{ post.pk }}'});
     });
 
 </script>
