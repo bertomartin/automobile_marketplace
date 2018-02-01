@@ -21,13 +21,13 @@ urlpatterns = [
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
 
     # Post management
-    url(r'^post/new/$', views.CreatePost.as_view(), name='new_post'),
-    url(r'^user/posts/$', views.UserPosts.as_view(), name='user_posts'),
-    url(r'^ajax/load-series/$', views.SeriesPicklist.as_view(), name='load_series'),
-    url(r'^post/(?P<post_id>[0-9a-f-]+)/upload-images/$', views.UploadImages.as_view(), name='upload-images'),
+    url(r'^post/new/$', customer.CreatePost.as_view(), name='new_post'),
+    url(r'^user/posts/$', customer.UserPosts.as_view(), name='user_posts'),
+    url(r'^ajax/load-series/$', customer.SeriesPicklist.as_view(), name='load_series'),
+    url(r'^post/(?P<post_id>[0-9a-f-]+)/upload-images/$', customer.UploadImages.as_view(), name='upload-images'),
 
     # Vehicle inspection
-    url(r'^ajax/request_inspection/$', views.request_inspection, name='request_inspection'),
+    url(r'^ajax/request_inspection/$', customer.request_inspection, name='request_inspection'),
     url(r'^ajax/requests/$', views.InspectionRequests.as_view(), name='get_requests'),
 
 ]
