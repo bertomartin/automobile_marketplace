@@ -5,13 +5,7 @@
 <script>
     $(document).ready(function (e) {
         {% for request_record in requestos %}
-            $.ajax({
-                url: '{% url 'load_request_list' %}',
-                data: {'request_id': '{{ request_record.pk }}'},
-                success: function (data) {
-                    $('#request-list-container').append(data);
-                }
-            });
+            append_content('#request-list-container', '{% url 'load_request_list' %}', {'request_id': '{{ request_record.pk }}'});
         {% endfor %}
     });
 </script>

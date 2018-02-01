@@ -13,13 +13,7 @@
     $(document).ready(function (e) {
         {# Temporary workaround while the number of posts is small #}
         {% for post in posts %}
-            $.ajax({
-                url: '{% url 'load_posts' %}',
-                data: {'post_id': '{{ post.pk }}'},
-                success: function (data) {
-                    $('#posts-panel').append(data);
-                }
-            });
+            append_content('#posts-panel', '{% url 'load_posts' %}', {'post_id': '{{ post.pk }}'});
         {% endfor %}
         {#  TODO multiple pages of posts  #}
     });

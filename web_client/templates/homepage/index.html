@@ -99,23 +99,15 @@
 {% endblock %}
 
 {% block customscript %}
+    <script src='{% static 'scripts/script.js' %}'></script>
     <script>
         $(document).ready(function (e) {
-            $.ajax({
-                url: '{% url 'load_main_container' %}',
-                success: function (data) {
-                    $('#main-container').html(data);
-                }
-            })
+            load_content('#main-container', '{% url 'load_main_container' %}', {});
         });
 
         $('#inspections-modal').on('show.bs.modal', function (e) {
-            $.ajax({
-                url: '{% url 'get_requests' %}',
-                success: function (data) {
-                    $('#request-modal-body').html(data);
-                }
-            })
+            load_content('#request-modal-body', '{% url 'get_requests' %}', {});
         });
     </script>
+
 {% endblock %}

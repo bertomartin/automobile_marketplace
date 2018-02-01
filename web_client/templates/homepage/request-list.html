@@ -14,20 +14,10 @@
 <script>
     var selected_request = null;
 
-    function load_tab_content(target_element, url, data) {
-        $.ajax({
-            url: url,
-            data: data,
-            success: function (data) {
-                $(target_element).html(data);
-            }
-        });
-    }
-
     $('#request-item-{{ record.pk }}').click(function () {
         $(selected_request).removeClass('active');
         selected_request = this;
         $(this).addClass('active');
-        load_tab_content('#edit-request-details', '{% url 'load_tab_content' %}', {'request_id': '{{ record.pk }}'});
+        load_content('#edit-request-details', '{% url 'load_tab_content' %}', {'request_id': '{{ record.pk }}'});
     })
 </script>

@@ -108,30 +108,20 @@
 
 <script>
 
-    function load_modal(target_element, url, data) {
-        $.ajax({
-            url: url,
-            data: data,
-            success: function (data) {
-                $(target_element).html(data);
-            }
-        });
-    }
-
     $('#{{ post.pk }}-share-modal').on('show.bs.modal', function (e) {
-        load_modal('#' + this.firstElementChild.id, '{% url 'load_sharing_modal' %}', {'post_id': '{{ post.pk }}'});
+        load_content('#' + this.firstElementChild.id, '{% url 'load_sharing_modal' %}', {'post_id': '{{ post.pk }}'});
     });
 
     $('#{{ post.pk }}-details-modal').on('show.bs.modal', function (e) {
-        load_modal('#' + this.firstElementChild.id, '{% url 'load_post_details' %}', {'post_id': '{{ post.pk }}'});
+        load_content('#' + this.firstElementChild.id, '{% url 'load_post_details' %}', {'post_id': '{{ post.pk }}'});
     });
 
     $('#{{ post.pk }}-contact-modal').on('show.bs.modal', function (e) {
-        load_modal('#' + this.firstElementChild.id, '{% url 'load_contact_modal' %}', {'post_id': '{{ post.pk }}'});
+        load_content('#' + this.firstElementChild.id, '{% url 'load_contact_modal' %}', {'post_id': '{{ post.pk }}'});
     });
 
     $('#{{ post.pk }}-workshop-modal').on('show.bs.modal', function (e) {
-        load_modal('#' + this.firstElementChild.id, '{% url 'load_workshops_modal' %}', {'post_id': '{{ post.pk }}'});
+        load_content('#' + this.firstElementChild.id, '{% url 'load_workshops_modal' %}', {'post_id': '{{ post.pk }}'});
     });
 
 </script>

@@ -46,13 +46,7 @@
     var selected_workshop;
 
     $('#{{ post.pk }}-workshop-modal').on('show.bs.modal', function (e) {
-        $.ajax({
-            url: '{% url 'load_workshops_modal' %}',
-            data: {'post_id': '{{ post.pk }}'},
-            success: function (data) {
-                $('#{{ post.offer_id }}-workshop-body').html(data);
-            }
-        });
+        load_content('#{{ post.offer_id }}-workshop-body', '{% url 'load_workshops_modal' %}', {'post_id': '{{ post.pk }}'});
     });
 
 
