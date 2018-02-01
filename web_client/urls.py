@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^ajax/load-post-details/$', views.PostDetails.as_view(), name='load_post_details'),
     url(r'^ajax/load-sharing-options/$', views.SharingOptions.as_view(), name='load_sharing_modal'),
     url(r'^ajax/load-contact-information/$', views.ContactInformation.as_view(), name='load_contact_modal'),
-    url(r'^ajax/load-workshops/$', views.WorkshopsList.as_view(), name='load_workshops_modal'),
+    url(r'^ajax/load-workshops/$', customer.WorkshopsList.as_view(), name='load_workshops_modal'),
 
     # Workshop's homepage
     url(r'^ajax/load-request-list/$', contractor.RequestList.as_view(), name='load_request_list'),

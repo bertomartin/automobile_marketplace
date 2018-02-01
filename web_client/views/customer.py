@@ -58,6 +58,17 @@ class UserPosts(View):
         return render(request, self.template_name, {'offers': posts})
 
 
+class WorkshopsList(View):
+    template_name = 'homepage/workshops_modal.html'
+
+    def get(self, request):
+        post_id = request.GET.get('post_id')
+        workshops = Contractor.objects.filter(status=True)
+        self.template_name = 'homepage/workshops_modal.html'
+
+        return render(request, self.template_name, {'post': Post.objects.get(pk=post_id), 'contractors': workshops})
+
+
 def request_inspection(request):
     contractor = Contractor.objects.get(user_id=request.GET.get('contractor_id'))
     post = Post.objects.get(offer_id=request.GET.get('post_id'))
@@ -67,15 +78,18 @@ def request_inspection(request):
         if InspectionRequest.objects.filter(corresponding_post=post,
                                             responsible_contractor=contractor,
                                             requesting_customer=customer).count() > 0:
-            status = 'This request request already exists for this user.'
+            message = 'This request request already exists for this user.'
+            status = False
         else:
             inspection = InspectionRequest(corresponding_post=post,
                                            responsible_contractor=contractor,
                                            requesting_customer=customer)
             inspection.save()
-            status = 'Your request to {} was successfully created.'.format(contractor.title)
+            message = 'Your request to {} was successfully created.'.format(contractor.title)
+            status = True
     except Exception as e:
-        status = 'Something went wrong during this request.'
+        message = 'Something went wrong during this request.'
+        status = False
         print('Couldn\'t create inspection request: \n', e)
 
-    return JsonResponse({'status': status})
+    return JsonResponse({'message': message, 'status': status})

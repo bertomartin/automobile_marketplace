@@ -80,7 +80,7 @@ class MainContainer(View):
 
 
 class Posts(View):
-    template_name = 'homepage/post_details.html'
+    template_name = 'homepage/post_details_thumbnail.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
@@ -106,22 +106,11 @@ class ContactInformation(View):
 
 
 class PostDetails(View):
-    template_name = 'homepage/post_all_details.html'
+    template_name = 'homepage/post_details_modal.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
         return render(request, self.template_name, {'post': Post.objects.get(pk=post_id)})
-
-
-class WorkshopsList(View):
-    template_name = 'homepage/workshops_modal.html'
-
-    def get(self, request):
-        post_id = request.GET.get('post_id')
-        workshops = Contractor.objects.filter(status=True)
-        self.template_name = 'homepage/workshops_modal.html'
-
-        return render(request, self.template_name, {'post': Post.objects.get(pk=post_id), 'contractors': workshops})
 
 
 @method_decorator([login_required], name='dispatch')
