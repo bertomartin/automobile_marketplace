@@ -116,9 +116,10 @@ class WorkshopsList(View):
 
     def get(self, request):
         post_id = request.GET.get('post_id')
-        user = Customer.objects.get(pk=request.user)
         workshops = Contractor.objects.filter(status=True)
-        return render(request, self.template_name, {'user': user, 'post': Post.objects.get(pk=post_id), 'contractors': workshops})
+        self.template_name = 'homepage/workshops_modal.html'
+
+        return render(request, self.template_name, {'post': Post.objects.get(pk=post_id), 'contractors': workshops})
 
 
 @method_decorator([login_required], name='dispatch')
