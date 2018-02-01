@@ -54,16 +54,27 @@ class Homepage(View):
 
 
 class MainContainer(View):
-    template_name = 'homepage/customer_main_container.html'
-    view_options = 'homepage/view_options.html'
-    ad_bar = 'homepage/ad_bar.html'
-    search_modal = 'homepage/search_modal.html'
+    template_name = None
+    parameters = {}
 
     def get(self, request):
-        posts = Post.objects.all().order_by('-created')
-        return render(request, self.template_name, {'posts': posts,
-                                                    'view_options': self.view_options,
-                                                    'ad_bar': self.ad_bar})
+        if request.user.is_authenticated and request.user.is_contractor:
+                self.parameters = {}
+                self.template_name = 'homepage/workshop_main_container.html'
+
+        elif request.user.is_authenticated and request.user.is_superuser:
+                self.parameters = {}
+                self.template_name = 'homepage/admin_main_container.html'
+        else:
+            self.template_name = 'homepage/customer_main_container.html'
+            posts = Post.objects.all().order_by('-created')
+            view_options = 'homepage/view_options.html'
+            ad_bar = 'homepage/ad_bar.html'
+            self.parameters = {'posts': posts,
+                               'view_options': view_options,
+                               'ad_bar': ad_bar}
+
+        return render(request, self.template_name, self.parameters)
 
 
 class Posts(View):
