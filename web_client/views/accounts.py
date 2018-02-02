@@ -68,3 +68,32 @@ class EditUserDetails(View):
             return redirect('homepage')
 
         return render(request, self.template_name, {'form': form, 'title': 'Edit information about your account'})
+
+
+@method_decorator([login_required], name='dispatch')
+class EditUser(View):
+    template_name = 'registration/edit_user.html'
+
+    def get_form(self, request):
+        if request.user.is_contractor:
+            return UpdateContractorForm(instance=Contractor.objects.get(user_id=request.user))
+        else:
+            return UpdateCustomerForm(instance=Customer.objects.get(user_id=request.user))
+
+    def post_form(self, request):
+        if request.user.is_contractor:
+            return UpdateContractorForm(data=request.POST, instance=Contractor.objects.get(user_id=request.user))
+        else:
+            return UpdateCustomerForm(data=request.POST, instance=Customer.objects.get(user_id=request.user))
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form(request)
+        return render(request, self.template_name, {'form': form, 'title': 'Edit information about your account'})
+
+    def post(self, request, *args, **kwargs):
+        form = self.post_form(request)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect('homepage')
+
+        return render(request, self.template_name, {'form': form, 'title': 'Edit information about your account'})

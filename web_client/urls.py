@@ -25,6 +25,9 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
 
+    # User preferences
+    url(r'^ajax/accounts/user/edit/$', accounts.EditUser.as_view(), name='load_user_modal'),
+
     # Post management
     url(r'^post/new/$', customer.CreatePost.as_view(), name='new_post'),
     url(r'^user/posts/$', customer.UserPosts.as_view(), name='user_posts'),

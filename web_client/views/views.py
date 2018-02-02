@@ -18,39 +18,40 @@ class Homepage(View):
     template_name = 'homepage/index.html'
     requests_modal = 'homepage/requests_modal.html'
     search_modal = 'homepage/search_modal.html'
+    user_modal = 'registration/user_modal.html'
 
     def get(self, request):
         search_form = SearchForm()
         return render(request, self.template_name, {'search_form': search_form,
                                                     'requests_modal': self.requests_modal,
-                                                    'search_modal': self.search_modal
+                                                    'search_modal': self.search_modal,
+                                                    'user_modal': self.user_modal
                                                     })
 
     # TODO move to separate View
-    def post(self, request):
-        form = SearchForm(request.POST)
-        query = 'SELECT * FROM web_client_post'
-        where_flag = False
-
-        if form.is_valid():
-            for field in form.cleaned_data:
-                print(field)
-                if form.cleaned_data.get(field) is not None:
-                    if where_flag is False:
-                        query += ' WHERE '
-                        where_flag = True
-                        query += str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
-                    else:
-                        query += ' AND ' + str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
-
-
-        list_of_posts = Post.objects.raw(query)
-        search_form = SearchForm()
-
-        return render(request, self.template_name, {'search_form': search_form,
-                                                    'requests_modal': self.requests_modal,
-                                                    'search_modal': self.search_modal
-                                                    })
+    # def post(self, request):
+    #     form = SearchForm(request.POST)
+    #     query = 'SELECT * FROM web_client_post'
+    #     where_flag = False
+    #
+    #     if form.is_valid():
+    #         for field in form.cleaned_data:
+    #             if form.cleaned_data.get(field) is not None:
+    #                 if where_flag is False:
+    #                     query += ' WHERE '
+    #                     where_flag = True
+    #                     query += str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
+    #                 else:
+    #                     query += ' AND ' + str(field) + ' = \'' + str(form.cleaned_data.get(field)) + '\''
+    #
+    #
+    #     list_of_posts = Post.objects.raw(query)
+    #     search_form = SearchForm()
+    #
+    #     return render(request, self.template_name, {'search_form': search_form,
+    #                                                 'requests_modal': self.requests_modal,
+    #                                                 'search_modal': self.search_modal
+    #                                                 })
 
 
 class MainContainer(View):

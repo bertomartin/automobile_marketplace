@@ -1,0 +1,13 @@
+<form class="form-horizontal" method="post" id="my-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <div class="form-group">
+            <label>{{ field.label_tag }}</label>
+            <div>
+                <p>{{ field }}</p>
+            </div>
+            <p>{{ field.errors }}</p>
+        </div>
+    {% endfor %}
+</form>

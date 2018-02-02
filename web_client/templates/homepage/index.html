@@ -47,12 +47,10 @@
                                         <li class="dropdown-header">Administrator section</li>
                                         <li><a href="admin/">Manage</a></li>
                                     {% elif request.user.is_contractor %}
-{#                                        <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>#}
                                         <li><a href="#" data-toggle="modal" data-target="#user-edit-modal">Account</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a></li>
                                     {% elif request.user.is_customer %}
-{#                                        <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>#}
                                         <li><a href="#" data-toggle="modal" data-target="#user-edit-modal">Account</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{% url 'user_posts' %}">Your posts</a></li>
@@ -97,6 +95,9 @@
 
     {#  Requests modal  #}
     {% include requests_modal %}
+
+    {#  User details modal  #}
+    {% include user_modal %}
 
 {% endblock %}
 
