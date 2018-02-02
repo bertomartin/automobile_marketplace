@@ -47,11 +47,13 @@
                                         <li class="dropdown-header">Administrator section</li>
                                         <li><a href="admin/">Manage</a></li>
                                     {% elif request.user.is_contractor %}
-                                        <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>
+{#                                        <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>#}
+                                        <li><a href="#" data-toggle="modal" data-target="#user-edit-modal">Account</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a></li>
                                     {% elif request.user.is_customer %}
-                                        <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>
+{#                                        <li><a href="{% url 'edit_user' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>#}
+                                        <li><a href="#" data-toggle="modal" data-target="#user-edit-modal">Account</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{% url 'user_posts' %}">Your posts</a></li>
                                         <li><a href="{% url 'new_post' %}">New post</a></li>
@@ -99,7 +101,6 @@
 {% endblock %}
 
 {% block customscript %}
-    <script src='{% static 'scripts/script.js' %}'></script>
     <script>
         $(document).ready(function (e) {
             load_content('#main-container', '{% url 'load_main_container' %}', {});
@@ -108,6 +109,9 @@
         $('#inspections-modal').on('show.bs.modal', function (e) {
             load_content('#request-modal-body', '{% url 'get_requests' %}', {});
         });
-    </script>
 
+        $('#user-edit-modal').on('show.bs.modal', function (e) {
+            load_content('#user-modal-container', '{% url 'load_user_modal' %}', {});
+        });
+    </script>
 {% endblock %}
