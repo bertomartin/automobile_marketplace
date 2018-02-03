@@ -8,25 +8,15 @@ from web_client.models import *
 
 
 class WelcomePage(View):
-    template_name = 'welcome/welcome.html'
 
     def get(self, request):
-        return render(request, self.template_name, {'testval': self.template_name})
+        return render(request, 'welcome/welcome.html')
 
 
 class Homepage(View):
-    template_name = 'homepage/index.html'
-    requests_modal = 'homepage/requests_modal.html'
-    search_modal = 'homepage/search_modal.html'
-    user_modal = 'registration/user_modal.html'
 
     def get(self, request):
-        search_form = SearchForm()
-        return render(request, self.template_name, {'search_form': search_form,
-                                                    'requests_modal': self.requests_modal,
-                                                    'search_modal': self.search_modal,
-                                                    'user_modal': self.user_modal
-                                                    })
+        return render(request, 'homepage/index.html')
 
     # TODO move to separate View
     # def post(self, request):
@@ -78,6 +68,21 @@ class MainContainer(View):
                                'ad_bar': ad_bar}
 
         return render(request, self.template_name, self.parameters)
+
+
+class Navbar(View):
+
+    def get_template(self, request):
+        if request.user.is_authenticated and request.user.is_contractor:
+            return 'navbar/workshop_navbar.html'
+        elif request.user.is_authenticated and request.user.is_superuser:
+            return 'navbar/admin_navbar.html'
+        else:
+            return 'navbar/customer_navbar.html'
+
+    def get(self, request):
+        template_name = self.get_template(request)
+        return render(request, template_name, {})
 
 
 class Posts(View):

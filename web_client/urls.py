@@ -6,6 +6,7 @@ urlpatterns = [
 
     # Homepage
     url(r'^$', views.Homepage.as_view(), name='homepage'),
+    url(r'^ajax/load-navbar/$', views.Navbar.as_view(), name='load_navbar'),
     url(r'^ajax/load-main-container/$', views.MainContainer.as_view(), name='load_main_container'),
     url(r'^ajax/load-posts/$', views.Posts.as_view(), name='load_posts'),
     url(r'^ajax/load-post-details/$', views.PostDetails.as_view(), name='load_post_details'),

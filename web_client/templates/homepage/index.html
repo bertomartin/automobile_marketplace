@@ -4,118 +4,20 @@
 
 {% block content %}
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'homepage' %}">Automobile Market</a>
-                </div>
+    {#  Navbar  #}
+    <div id="navbar-container">
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                    <ul class="nav navbar-nav navbar-left">
-                        <li><a id="new-search">Detailed search <span
-                                class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
-{#                        <button type="button" id="new-search" class="btn btn-default" data-toggle="modal"#}
-{#                                data-target="#new-search-modal" aria-label="Left Align">Detailed search <span#}
-{#                                class="glyphicon glyphicon-search" aria-hidden="true"></span>#}
-{#                        </button>#}
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-
-                        {% if request.user.is_authenticated %}
-                            <li><a>Viewing as {{ request.user }}</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">Your cockpit<span class="caret"></span></a>
-
-                                <ul class="dropdown-menu">
-
-
-                                    {% if request.user.is_superuser %}
-                                        <li class="dropdown-header">Administrator section</li>
-                                        <li><a href="admin/">Manage</a></li>
-                                    {% elif request.user.is_contractor %}
-                                        <li><a href="#" data-toggle="modal" data-target="#account-details-modal">Account</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a></li>
-                                    {% elif request.user.is_customer %}
-                                        <li><a href="#" data-toggle="modal" data-target="#account-details-modal">Account</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="{% url 'user_posts' %}">Your posts</a></li>
-                                        <li><a href="{% url 'new_post' %}">New post</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests <span class="badge">{{ number_of_inspections }}</span></a></li>
-                                    {% endif %}
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</a></li>
-
-                                </ul>
-
-                            </li>
-                        {% else %}
-                            <li><a>Viewing as Guest</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">Log in <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Authorise</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">Not our customer yet?<br>Sign up!</li>
-                                    <li><a href="{% url 'signup' 'customer' %}">Create Customer Account</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">Become our authorised service center!</li>
-                                    <li><a href="{% url 'signup' 'contractor' %}">Create Service Center Account</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
-
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </div>
-    </nav>
-
+    </div>
     {#  Main container  #}
     <div class="row" id="main-container" style="padding-top: 70px"></div>
-
-    {#  Search modal  #}
-    {% include search_modal %}
-
-    {#  Requests modal  #}
-    {% include requests_modal %}
-
-    {#  Account details modal  #}
-    <div class="modal fade" id="account-details-modal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" id="account-details-body" role="document"></div>
-    </div>
 
 {% endblock %}
 
 {% block customscript %}
     <script>
-        $(document).ready(function (e) {
+        $(document).ready(function () {
+            load_content('#navbar-container', '{% url 'load_navbar' %}', {});
             load_content('#main-container', '{% url 'load_main_container' %}', {});
-        });
-
-        $('#inspections-modal').on('show.bs.modal', function (e) {
-            load_content('#request-modal-body', '{% url 'get_requests' %}', {});
-        });
-
-        $('#account-details-modal').on('show.bs.modal', function (e) {
-            load_content('#account-details-body', '{% url 'load_user_details_modal' %}', {});
         });
     </script>
 {% endblock %}
