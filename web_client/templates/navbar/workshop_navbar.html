@@ -29,9 +29,6 @@
 
                             <li><a href="#" data-toggle="modal" data-target="#account-details-modal">Account</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a>
-                            </li>
-                            <li role="separator" class="divider"></li>
                             <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"
                                                                    aria-hidden="true"></span> Log out</a></li>
                         </ul>
@@ -42,3 +39,15 @@
         </div><!-- /.container-fluid -->
     </div>
 </nav>
+
+{# Account details modal #}
+<div class="modal fade" id="account-details-modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" id="account-details-body" role="document"></div>
+</div>
+
+<script>
+    $('#account-details-modal').on('show.bs.modal', function () {
+        load_content('#account-details-body', '{% url 'load_user_details_modal' %}', {});
+    });
+</script>
