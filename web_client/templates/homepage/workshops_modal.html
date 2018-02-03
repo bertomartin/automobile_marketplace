@@ -2,6 +2,7 @@
 
 <div class="modal-content">
     {% if request.user.is_authenticated %}
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
@@ -23,10 +24,12 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" id="close-workshop-modal" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="submit-request-{{ post.pk }}">Select and request inspection</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="submit-request-{{ post.pk }}">Select and request
+                inspection
+            </button>
         </div>
-        </div>
+
     {% else %}
 
         <div class="modal-body">
