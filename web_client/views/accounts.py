@@ -71,6 +71,14 @@ class EditUserDetails(View):
 
 
 @method_decorator([login_required], name='dispatch')
+class AccountDetailsModal(View):
+    template_name = 'registration/user_details_modal.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+@method_decorator([login_required], name='dispatch')
 class EditUser(View):
     template_name = 'registration/edit_user.html'
 
@@ -92,8 +100,12 @@ class EditUser(View):
 
     def post(self, request, *args, **kwargs):
         form = self.post_form(request)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect('homepage')
+        if form.is_valid():
+            form.save()
+            success = True
+            form = self.get_form(request)
+            # return redirect('homepage')
+        else:
+            success = False
 
-        return render(request, self.template_name, {'form': form, 'title': 'Edit information about your account'})
+        return render(request, self.template_name, {'success': success, 'form': form, 'title': 'Edit information about your account'})

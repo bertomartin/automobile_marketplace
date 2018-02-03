@@ -1,0 +1,31 @@
+<div class="modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit user details</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8" id="user-modal-container"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="close-workshop-modal" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="submit-button">Save changes
+                inspection
+            </button>
+        </div>
+
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        load_content('#user-modal-container', '{% url 'load_user_details' %}', {})
+    });
+
+    $('#submit-button').click(function () { // catch the form's submit event
+        submit_form('#user-modal-container', '{% url 'load_user_details' %}', $('#my-form').serialize());
+    });
+</script>

@@ -47,11 +47,11 @@
                                         <li class="dropdown-header">Administrator section</li>
                                         <li><a href="admin/">Manage</a></li>
                                     {% elif request.user.is_contractor %}
-                                        <li><a href="#" data-toggle="modal" data-target="#user-edit-modal">Account</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#account-details-modal">Account</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="#" data-toggle="modal" data-target="#inspections-modal">Inspection requests</a></li>
                                     {% elif request.user.is_customer %}
-                                        <li><a href="#" data-toggle="modal" data-target="#user-edit-modal">Account</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#account-details-modal">Account</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{% url 'user_posts' %}">Your posts</a></li>
                                         <li><a href="{% url 'new_post' %}">New post</a></li>
@@ -96,8 +96,11 @@
     {#  Requests modal  #}
     {% include requests_modal %}
 
-    {#  User details modal  #}
-    {% include user_modal %}
+    {#  Account details modal  #}
+    <div class="modal fade" id="account-details-modal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" id="account-details-body" role="document"></div>
+    </div>
 
 {% endblock %}
 
@@ -111,8 +114,8 @@
             load_content('#request-modal-body', '{% url 'get_requests' %}', {});
         });
 
-        $('#user-edit-modal').on('show.bs.modal', function (e) {
-            load_content('#user-modal-container', '{% url 'load_user_modal' %}', {});
+        $('#account-details-modal').on('show.bs.modal', function (e) {
+            load_content('#account-details-body', '{% url 'load_user_details_modal' %}', {});
         });
     </script>
 {% endblock %}

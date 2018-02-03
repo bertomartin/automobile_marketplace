@@ -26,7 +26,8 @@ urlpatterns = [
     url(r'^welcome/$', views.WelcomePage.as_view(), name='welcome'),
 
     # User preferences
-    url(r'^ajax/accounts/user/edit/$', accounts.EditUser.as_view(), name='load_user_modal'),
+    url(r'^ajax/accounts/user/details/$', accounts.AccountDetailsModal.as_view(), name='load_user_details_modal'),
+    url(r'^ajax/accounts/user/edit/$', accounts.EditUser.as_view(), name='load_user_details'),
 
     # Post management
     url(r'^post/new/$', customer.CreatePost.as_view(), name='new_post'),
