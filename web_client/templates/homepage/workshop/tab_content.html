@@ -1,13 +1,15 @@
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Technical
+    <li role="presentation"><a href="#technical" aria-controls="technical" role="tab" data-toggle="tab">Technical
         Condition</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Visual Condition</a>
+    <li role="presentation"><a href="#visual" aria-controls="visual" role="tab" data-toggle="tab">Visual Condition</a>
     </li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Comments</a></li>
+    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+    <li role="presentation" class="active"><a href="#submit" aria-controls="submit" role="tab" data-toggle="tab">Submit</a></li>
 </ul>
 
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">{{ record.date_created }}</div>
-    <div role="tabpanel" class="tab-pane" id="profile">....</div>
-    <div role="tabpanel" class="tab-pane" id="messages">.....</div>
+    <div role="tabpanel" class="tab-pane" id="technical">{{ record.date_created }}</div>
+    <div role="tabpanel" class="tab-pane" id="visual">....</div>
+    <div role="tabpanel" class="tab-pane" id="comments">.....</div>
+    <div role="tabpanel" class="tab-pane active" id="submit">{{ form }}</div>
 </div>

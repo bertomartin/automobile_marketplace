@@ -6,11 +6,11 @@ class CreatePost(View):
     template_name = 'post/edit_post.html'
 
     def get(self, request):
-        form = OfferForm(initial={'contact_person': Customer.objects.get(user_id=request.user).name})
+        form = PostForm(initial={'contact_person': Customer.objects.get(user_id=request.user).name})
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = OfferForm(self.request.POST)
+        form = PostForm(self.request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.owner = request.user

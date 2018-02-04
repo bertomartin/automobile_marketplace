@@ -74,7 +74,7 @@ class UpdateContractorForm(forms.ModelForm):
         fields = ['title', 'street', 'city', 'country', 'email', 'phone_number', 'status']
 
 
-class OfferForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
 
     make = forms.ModelChoiceField(label='Manufacturer', queryset=Manufacturer.objects.all())
     engine_type = forms.ModelChoiceField(label='Engine', queryset=EngineType.objects.all())
@@ -82,7 +82,7 @@ class OfferForm(forms.ModelForm):
     body_type = forms.ModelChoiceField(queryset=BodyType.objects.all())
 
     def __init__(self, *args, **kwargs):
-        super(OfferForm, self).__init__(*args, **kwargs)
+        super(PostForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
         self.fields['description'].widget.attrs.update({'placeholder': 'Additional description'})
@@ -126,3 +126,17 @@ class SearchForm(forms.Form):
 
     class Meta:
         fields = ['make', 'engine_type', 'engine_capacity', 'body_type', 'price_bottom', 'price_top']
+
+
+class EditInspectionForm(forms.ModelForm):
+
+    status = forms.BooleanField(label='Resolved', required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(EditInspectionForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+    class Meta:
+        model = InspectionRequest
+        fields = ['status', 'details']
