@@ -3,38 +3,54 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                 aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit user details</h4>
+        <h4 class="modal-title" id="myModalLabel">Account preferences</h4>
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-4" id="account-details-sidebar-container"></div>
-            <div class="col-md-8" style="overflow-y: scroll; height: 70vh;">
-                <div class="page-header">
-                    <h3>General information</h3>
+            <nav class="col-sm-4">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#user-details-header">User details</a></li>
+                    <li><a href="#general-header">General</a></li>
+                    <li><a href="#notifications-header">Notifications</a></li>
+                    <li><a href="#security-header">Security</a></li>
+                </ul>
+            </nav>
+            <div class="col-md-8" style="overflow-y: scroll; height: 69vh;">
+                <div class="page-header" id="user-details-header">
+                    <h3>User details</h3>
                 </div>
-                <div id="user-modal-container" ></div>
-                <div class="page-header">
-                    <h3>Foo Bar</h3>
+                <div id="user-details"></div>
+
+                <div class="page-header" id="general-header">
+                    <h3>General</h3>
                 </div>
-                <div>...</div>
+                <div style="height: 200px">Section to be filled</div>
+
+                <div class="page-header" id="notifications-header">
+                    <h3>Notifications</h3>
+                </div>
+                <div style="height: 200px">Section to be filled</div>
+
+                <div class="page-header" id="security-header">
+                    <h3>Security</h3>
+                </div>
+                <div style="height: 200px">Section to be filled</div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-            <button type="button" class="btn btn-default" id="close-workshop-modal" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="submit-button">Save changes
-                inspection
-            </button>
-        </div>
+        <button type="button" class="btn btn-default" id="close-workshop-modal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="submit-button">Save changes</button>
+    </div>
 
 </div>
 
 <script>
     $(document).ready(function (e) {
-        load_content('#user-modal-container', '{% url 'load_user_details' %}', {})
+        load_content('#user-details', '{% url 'load_user_details' %}', {})
     });
 
-    $('#submit-button').click(function () { // catch the form's submit event
-        submit_form('#user-modal-container', '{% url 'load_user_details' %}', $('#my-form').serialize());
+    $('#submit-button').click(function () { // submit all forms with one button
+        submit_form('#user-details', '{% url 'load_user_details' %}', $('#my-form').serialize());
     });
 </script>
