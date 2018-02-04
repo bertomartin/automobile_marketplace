@@ -56,7 +56,6 @@ class MainContainer(View):
             self.parameters = {'requestos': inspections}
 
         elif request.user.is_authenticated and request.user.is_superuser:
-                self.parameters = {}
                 self.template_name = 'homepage/admin_main_container.html'
         else:
             self.template_name = 'homepage/customer_main_container.html'

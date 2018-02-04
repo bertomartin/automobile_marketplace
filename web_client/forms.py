@@ -27,6 +27,9 @@ class CustomerSignUpForm(UserCreationForm):
 
 class UpdateCustomerForm(forms.ModelForm):
 
+    name = forms.CharField(max_length=30, required=True)
+    email = forms.EmailField(required=True)
+
     def __init__(self, *args, **kwargs):
         super(UpdateCustomerForm, self).__init__(*args, **kwargs)
         for field in self.fields:

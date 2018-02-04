@@ -2,12 +2,12 @@
     {% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}
-        <div class="form-group">
-            <label>{{ field.label_tag }}</label>
-            <div>
+        <div class="form-group {%if field.errors %}has-error{%endif%}">
+            <label class="col-sm-4 text-right">{{ field.label_tag }}</label>
+            <div class="col-sm-7">
                 <p>{{ field }}</p>
+                <p>{{ field.errors }}</p>
             </div>
-            <p>{{ field.errors }}</p>
         </div>
     {% endfor %}
 </form>
