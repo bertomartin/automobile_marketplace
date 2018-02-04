@@ -51,7 +51,7 @@ class UploadImages(View):
 
 @method_decorator([login_required], name='dispatch')
 class UserPosts(View):
-    template_name = 'homepage/user_offers.html'
+    template_name = 'homepage/customer/user_offers.html'
 
     def get(self, request):
         posts = Post.objects.filter(owner=request.user)
@@ -59,12 +59,11 @@ class UserPosts(View):
 
 
 class WorkshopsList(View):
-    template_name = 'homepage/workshops_modal.html'
+    template_name = 'homepage/customer/workshops_modal.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
         workshops = Contractor.objects.filter(status=True)
-        self.template_name = 'homepage/workshops_modal.html'
 
         return render(request, self.template_name, {'post': Post.objects.get(pk=post_id), 'contractors': workshops})
 

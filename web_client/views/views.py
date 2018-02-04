@@ -50,18 +50,18 @@ class MainContainer(View):
 
     def get(self, request):
         if request.user.is_authenticated and request.user.is_contractor:
-            self.template_name = 'homepage/workshop_main_container.html'
+            self.template_name = 'homepage/workshop/workshop_main_container.html'
             inspections = InspectionRequest.objects.filter(
                 responsible_contractor=Contractor.objects.get(user_id=request.user)).order_by('status')
             self.parameters = {'requestos': inspections}
 
         elif request.user.is_authenticated and request.user.is_superuser:
-                self.template_name = 'homepage/admin_main_container.html'
+                self.template_name = 'homepage/admin/admin_main_container.html'
         else:
-            self.template_name = 'homepage/customer_main_container.html'
+            self.template_name = 'homepage/customer/customer_main_container.html'
             posts = Post.objects.all().order_by('-created')
-            view_options = 'homepage/view_options.html'
-            ad_bar = 'homepage/ad_bar.html'
+            view_options = 'homepage/customer/view_options.html'
+            ad_bar = 'homepage/customer/ad_bar.html'
             self.parameters = {'posts': posts,
                                'view_options': view_options,
                                'ad_bar': ad_bar}
@@ -85,7 +85,7 @@ class Navbar(View):
 
 
 class Posts(View):
-    template_name = 'homepage/post_details_thumbnail.html'
+    template_name = 'homepage/customer/post_details_thumbnail.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
@@ -95,7 +95,7 @@ class Posts(View):
 
 
 class SharingOptions(View):
-    template_name = 'homepage/sharing_options.html'
+    template_name = 'homepage/customer/sharing_options.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
@@ -103,7 +103,7 @@ class SharingOptions(View):
 
 
 class ContactInformation(View):
-    template_name = 'homepage/contact_information_modal.html'
+    template_name = 'homepage/customer/contact_information_modal.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
@@ -111,7 +111,7 @@ class ContactInformation(View):
 
 
 class PostDetails(View):
-    template_name = 'homepage/post_details_modal.html'
+    template_name = 'homepage/customer/post_details_modal.html'
 
     def get(self, request):
         post_id = request.GET.get('post_id')
@@ -125,10 +125,10 @@ class InspectionRequests(View):
 
     def get(self, request):
         if request.user.is_customer:
-            self.template_name = 'homepage/customer_inspections.html'
+            self.template_name = 'homepage/customer/customer_inspections.html'
             self.inspections = InspectionRequest.objects.filter(requesting_customer=request.user)
         else:
-            self.template_name = 'homepage/contractor_inspections.html'
+            self.template_name = 'homepage/workshop/contractor_inspections.html'
             self.inspections = InspectionRequest.objects.filter(responsible_contractor=Contractor.objects.get(user_id=request.user))
 
         return render(request, self.template_name, {'inspections': self.inspections})

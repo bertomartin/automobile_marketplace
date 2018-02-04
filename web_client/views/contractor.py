@@ -2,7 +2,7 @@ from .views import *
 
 
 class RequestList(View):
-    template_name = 'homepage/request-list.html'
+    template_name = 'homepage/workshop/request-list.html'
 
     def get(self, request):
         request_record = InspectionRequest.objects.get(pk=request.GET.get('request_id'))
@@ -10,7 +10,7 @@ class RequestList(View):
 
 
 class TabContent(View):
-    template_name = 'homepage/tab_content.html'
+    template_name = 'homepage/workshop/tab_content.html'
 
     def get(self, request):
         # TODO create Inspection form to be passed to this template
