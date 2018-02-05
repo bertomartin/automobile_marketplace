@@ -16,7 +16,8 @@ urlpatterns = [
 
     # Workshop's homepage
     url(r'^ajax/load-request-list/$', contractor.RequestList.as_view(), name='load_request_list'),
-    url(r'^ajax/load-tab-content/$', contractor.TabContent.as_view(), name='load_tab_content'),
+    url(r'^ajax/update-request/$', contractor.RequestEvaluationContainer.as_view(), name='load_request_evaluation_container'),
+    url(r'^ajax/update-request-form/(?P<id>[0-9a-f-]+)$', contractor.RequestEvaluation.as_view(), name='update_inspection_request'),
 
     # Authentication/Authorisation
     url(r'^accounts/', include('django.contrib.auth.urls')),

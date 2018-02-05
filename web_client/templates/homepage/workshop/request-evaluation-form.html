@@ -1,0 +1,13 @@
+<form class="form-horizontal" method="post" id="submit_evaluation" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <div class="form-group {% if field.errors %}has-error{% endif %}">
+            <label class="col-sm-4 text-right">{{ field.label_tag }}</label>
+            <div class="col-sm-8">
+                <p>{{ field }}</p>
+                <p>{{ field.errors }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</form>

@@ -18,6 +18,6 @@
         $(selected_request).removeClass('active');
         selected_request = this;
         $(this).addClass('active');
-        load_content('#edit-request-details', '{% url 'load_tab_content' %}', {'request_id': '{{ record.pk }}'});
+        load_content('#edit-request-details', '{% url 'load_request_evaluation_container' %}', {'request_id': '{{ record.pk }}'});
     })
 </script>
