@@ -109,7 +109,7 @@
 <script>
 
     $('#{{ post.pk }}-share-modal').on('show.bs.modal', function (e) {
-        load_content('#' + this.firstElementChild.id, '{% url 'load_sharing_modal' %}', {'post_id': '{{ post.pk }}'});
+        load_content('#' + this.firstElementChild.id, '{% url 'load_sharing_modal' post.pk %}', '');
     });
 
     $('#{{ post.pk }}-details-modal').on('show.bs.modal', function (e) {

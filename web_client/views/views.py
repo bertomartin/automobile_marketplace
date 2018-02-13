@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from django.http import JsonResponse
 from web_client.forms import *
 from web_client.models import *
@@ -94,12 +94,13 @@ class Posts(View):
         return render(request, self.template_name, {'post': post, 'images': images})
 
 
-class SharingOptions(View):
+class SharingOptions(TemplateView):
     template_name = 'homepage/customer/sharing_options.html'
 
-    def get(self, request):
-        post_id = request.GET.get('post_id')
-        return render(request, self.template_name, {'post_id': Post.objects.get(pk=post_id).pk})
+    def get_context_data(self, **kwargs):
+        context = super(SharingOptions, self).get_context_data(**kwargs)
+        context['post_id'] = Post.objects.get(pk=self.kwargs['id']).pk
+        return context
 
 
 class ContactInformation(View):
