@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, View
+from django.views.generic import CreateView, View, TemplateView
 from django.shortcuts import render, redirect, Http404
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
@@ -71,11 +71,8 @@ class EditUserDetails(View):
 
 
 @method_decorator([login_required], name='dispatch')
-class AccountDetailsModal(View):
+class AccountDetailsModal(TemplateView):
     template_name = 'registration/user_details_modal.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
 
 
 @method_decorator([login_required], name='dispatch')
