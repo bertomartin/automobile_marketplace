@@ -7,16 +7,12 @@ from web_client.forms import *
 from web_client.models import *
 
 
-class WelcomePage(View):
-
-    def get(self, request):
-        return render(request, 'welcome/welcome.html')
+class WelcomePage(TemplateView):
+    template_name = 'welcome/welcome.html'
 
 
-class Homepage(View):
-
-    def get(self, request):
-        return render(request, 'homepage/index.html')
+class Homepage(TemplateView):
+    template_name = 'homepage/index.html'
 
     # TODO move to separate View
     # def post(self, request):
