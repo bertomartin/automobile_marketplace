@@ -12,14 +12,14 @@ class User(AbstractUser):
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, related_name="customer_user", on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, related_name="customer", on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(blank=True)
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
 
 class Contractor(models.Model):
-    user = models.OneToOneField(User, related_name="contractor_user", on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, related_name="contractor", on_delete=models.CASCADE, primary_key=True)
 
     title = models.CharField(max_length=100, blank=False)
     street = models.CharField(max_length=100, blank=False)
@@ -82,7 +82,7 @@ class Post(models.Model):
         YEAR_CHOICES.append((r, r))
 
     offer_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     make = models.ForeignKey(Manufacturer, on_delete=models.SET_NULL, null=True)
     model = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True)
     engine_type = models.ForeignKey(EngineType, on_delete=models.SET_NULL, null=True)
@@ -107,8 +107,8 @@ class InspectionRequest(models.Model):
 
     status = models.BooleanField(default=False)
     corresponding_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    responsible_contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE)
-    requesting_customer = models.ForeignKey(Customer, related_name="requesting_customer", on_delete=models.CASCADE)
+    responsible_contractor = models.ForeignKey(Contractor, related_name='inspection_requests', on_delete=models.CASCADE)
+    requesting_customer = models.ForeignKey(Customer, related_name='inspection_requests', on_delete=models.CASCADE)
     details = models.TextField(blank=True)
     date_created = models.DateField(auto_now_add=True)
     date_resolved = models.DateField(null=True)
