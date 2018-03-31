@@ -6,7 +6,6 @@ urlpatterns = [
 
     # Homepage
     url(r'^$', views.Homepage.as_view(), name='homepage'),
-    url(r'^ajax/load-navbar/$', views.Navbar.as_view(), name='load_navbar'),
 
     # Workshop's homepage
     url(r'^ajax/load-request-list/$', contractor.RequestList.as_view(), name='load_request_list'),
