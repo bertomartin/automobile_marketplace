@@ -1,4 +1,5 @@
 {% load static %}
+{% load tags %}
 
 <div class="row">
     <div class="col-sm-12 col-md-12">
@@ -79,49 +80,43 @@
                 {# 'Share' modal #}
                 <div class="modal fade" id="{{ post.pk }}-share-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" id="{{ post.pk }}-share-body" role="document"></div>
+                    <div class="modal-dialog" id="{{ post.pk }}-share-body" role="document">
+                        {% load_sharing_options post.pk %}
+                    </div>
                 </div>
 
                 {# 'More details' modal #}
                 <div class="modal fade" id="{{ post.pk }}-details-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog modal-lg" id="{{ post.pk }}-details-body" role="document"></div>
+                    <div class="modal-dialog modal-lg" id="{{ post.pk }}-details-body" role="document">
+                        {% load_post_details_modal post.pk %}
+                    </div>
                 </div>
 
                 {# 'Contact seller' modal #}
                 <div class="modal fade" id="{{ post.pk }}-contact-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" id="{{ post.pk }}-contact-body" role="document"></div>
+                    <div class="modal-dialog" id="{{ post.pk }}-contact-body" role="document">
+                        {% load_seller_contact_information_modal post.pk %}
+                    </div>
                 </div>
 
                 {# 'Request inspection' modal #}
                 <div class="modal fade" id="{{ post.pk }}-workshop-modal" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel">
                     <div class="modal-dialog" id="{{ post.pk }}-workshop-body" role="document">
+                        {% if request.user %}
+                            {% if request.user.is_customer %}
+                            {% load_customer_workshop_modal request.user %}
+                            {% else %}
+                            {% load_contractor_workshop_modal request.user %}
+                            {% endif %}
+                        {% else %}
+{#                            {% include 'registration/login_modal.html' %}#}
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<script>
-
-    $('#{{ post.pk }}-share-modal').on('show.bs.modal', function (e) {
-        load_content('#' + this.firstElementChild.id, '{% url 'load_sharing_modal' post.pk %}', '');
-    });
-
-    $('#{{ post.pk }}-details-modal').on('show.bs.modal', function (e) {
-        load_content('#' + this.firstElementChild.id, '{% url 'load_post_details' %}', {'post_id': '{{ post.pk }}'});
-    });
-
-    $('#{{ post.pk }}-contact-modal').on('show.bs.modal', function (e) {
-        load_content('#' + this.firstElementChild.id, '{% url 'load_contact_modal' %}', {'post_id': '{{ post.pk }}'});
-    });
-
-    $('#{{ post.pk }}-workshop-modal').on('show.bs.modal', function (e) {
-        load_content('#' + this.firstElementChild.id, '{% url 'load_workshops_modal' %}', {'post_id': '{{ post.pk }}'});
-    });
-
-</script>

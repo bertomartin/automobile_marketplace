@@ -40,31 +40,6 @@ class Homepage(TemplateView):
     #                                                 })
 
 
-class MainContainer(View):
-    template_name = None
-    parameters = {}
-
-    def get(self, request):
-        if request.user.is_authenticated and request.user.is_contractor:
-            self.template_name = 'homepage/workshop/workshop_main_container.html'
-            inspections = InspectionRequest.objects.filter(
-                responsible_contractor=Contractor.objects.get(user_id=request.user)).order_by('status')
-            self.parameters = {'requestos': inspections}
-
-        elif request.user.is_authenticated and request.user.is_superuser:
-                self.template_name = 'homepage/admin/admin_main_container.html'
-        else:
-            self.template_name = 'homepage/customer/customer_main_container.html'
-            posts = Post.objects.all().order_by('-created')
-            view_options = 'homepage/customer/view_options.html'
-            ad_bar = 'homepage/customer/ad_bar.html'
-            self.parameters = {'posts': posts,
-                               'view_options': view_options,
-                               'ad_bar': ad_bar}
-
-        return render(request, self.template_name, self.parameters)
-
-
 class Navbar(View):
 
     def get_template(self, request):
@@ -78,41 +53,6 @@ class Navbar(View):
     def get(self, request):
         template_name = self.get_template(request)
         return render(request, template_name, {})
-
-
-class Posts(View):
-    template_name = 'homepage/customer/post_details_thumbnail.html'
-
-    def get(self, request):
-        post_id = request.GET.get('post_id')
-        post = Post.objects.get(pk=post_id)
-        images = Image.objects.filter(post=post)
-        return render(request, self.template_name, {'post': post, 'images': images})
-
-
-class SharingOptions(TemplateView):
-    template_name = 'homepage/customer/sharing_options.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(SharingOptions, self).get_context_data(**kwargs)
-        context['post_id'] = Post.objects.get(pk=self.kwargs['id']).pk
-        return context
-
-
-class ContactInformation(View):
-    template_name = 'homepage/customer/contact_information_modal.html'
-
-    def get(self, request):
-        post_id = request.GET.get('post_id')
-        return render(request, self.template_name, {'post': Post.objects.get(pk=post_id)})
-
-
-class PostDetails(View):
-    template_name = 'homepage/customer/post_details_modal.html'
-
-    def get(self, request):
-        post_id = request.GET.get('post_id')
-        return render(request, self.template_name, {'post': Post.objects.get(pk=post_id)})
 
 
 @method_decorator([login_required], name='dispatch')
