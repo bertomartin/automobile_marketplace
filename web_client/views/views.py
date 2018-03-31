@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
-from django.http import JsonResponse
-from web_client.forms import *
 from web_client.models import *
 
 
@@ -38,21 +36,6 @@ class Homepage(TemplateView):
     #                                                 'requests_modal': self.requests_modal,
     #                                                 'search_modal': self.search_modal
     #                                                 })
-
-
-class Navbar(View):
-
-    def get_template(self, request):
-        if request.user.is_authenticated and request.user.is_contractor:
-            return 'navbar/workshop_navbar.html'
-        elif request.user.is_authenticated and request.user.is_superuser:
-            return 'navbar/admin_navbar.html'
-        else:
-            return 'navbar/customer_navbar.html'
-
-    def get(self, request):
-        template_name = self.get_template(request)
-        return render(request, template_name, {})
 
 
 @method_decorator([login_required], name='dispatch')
