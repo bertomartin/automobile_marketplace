@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tags %}
 
 
 {% block content %}
@@ -9,7 +10,16 @@
 
     </div>
     {#  Main container  #}
-    <div class="row" id="main-container" style="padding-top: 70px"></div>
+    <div class="row" id="main-container" style="padding-top: 70px">
+{#    {% main_container %}#}
+    {% if request.user.is_authenticated and request.user.is_contractor %}
+        {% workshop_main_container %}
+    {% elif request.user.is_authenticated and request.user.is_superuser %}
+        {% admin_main_container %}
+    {% else %}
+        {% customer_main_container %}
+    {% endif %}
+    </div>
 
 {% endblock %}
 
@@ -17,7 +27,7 @@
     <script>
         $(document).ready(function () {
             load_content('#navbar-container', '{% url 'load_navbar' %}', {});
-            load_content('#main-container', '{% url 'load_main_container' %}', {});
+            {#load_content('#main-container', '{% url 'load_main_container' %}', {});#}
         });
     </script>
 {% endblock %}

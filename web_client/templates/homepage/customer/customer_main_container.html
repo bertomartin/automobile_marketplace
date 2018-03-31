@@ -1,8 +1,15 @@
+{% load tags %}
+
 <div class="col-md-2">
     {% include view_options %}
 </div>
 
-<div class="col-md-7" id="posts-panel"></div>
+<div class="col-md-7" id="posts-panel">
+    {% for post in posts %}
+        {% load_post_thumbnail post %}
+    {% endfor %}
+
+</div>
 
 
 <div class="col-md-3">
@@ -10,14 +17,6 @@
 </div>
 
 <script>
-    $(document).ready(function (e) {
-        {# Temporary workaround while the number of posts is small #}
-        {% for post in posts %}
-            append_content('#posts-panel', '{% url 'load_posts' %}', {'post_id': '{{ post.pk }}'});
-        {% endfor %}
-        {#  TODO multiple pages of posts  #}
-    });
-
     {# Sticks ad bar and view options to top of the page #}
     $(function () {
         var
