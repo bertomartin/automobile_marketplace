@@ -26,13 +26,12 @@ def admin_main_container():
 @register.inclusion_tag('homepage/customer/customer_main_container.html',
                         takes_context=True)
 def customer_main_container(context):
-    posts = Post.objects.all().order_by('-created')
-    view_options = 'homepage/customer/view_options.html'
-    ad_bar = 'homepage/customer/ad_bar.html'
-    parameters = {'context': context,
-                  'posts': posts,
-                  'view_options': view_options,
-                  'ad_bar': ad_bar}
+    parameters = {
+        'context': context,
+        'posts': Post.objects.all().order_by('-created'),
+        'view_options': 'homepage/customer/view_options.html',
+        'ad_bar': 'homepage/customer/ad_bar.html'
+                  }
     return parameters
 
 
